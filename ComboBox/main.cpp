@@ -14,45 +14,6 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 }
 
 
-VOID concStr_c(CHAR* buff, CONST CHAR* str_1, CONST CHAR* str_2)
-{
-	INT SIZE = sizeof(buff) / sizeof(buff[0]);
-	INT cntr = 0;
-	while (str_1[cntr] != '\0')
-	{
-		buff[cntr] = str_1[cntr];
-		cntr++;
-	}
-
-	if (cntr < SIZE - 2)
-	{
-		buff[cntr++] = '.';
-	}
-
-	if (cntr < SIZE - 2)
-	{
-		buff[cntr++] = ' ';
-	}
-
-
-	INT i = 0;
-	while (str_2[i] != '\0' && cntr < SIZE)
-	{
-		if (cntr == SIZE - 1) //если в массиве остался один незаписанный элемент 
-		{
-			buff[cntr] = '\0'; // закрываем массив
-			break; //прекращаем цикл
-		}
-		buff[cntr] = str_2[i++];
-		cntr++;
-	}
-
-	if (cntr < SIZE - 1)
-	{
-		buff[cntr] = '\0';
-	}
-}
-
 
 
 BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) //обработчик 
@@ -96,9 +57,9 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) //обра
 							CONST INT safeSize = 32;
 							CHAR indexStr[safeSize] = {};
 
-							sprintf_s(indexStr, safeSize, "%d", (index + 1)); //преобразуем число в строковое представление
 							SendMessage(hCombo, CB_GETLBTEXT, index, (LPARAM)textBuf); //переписываем выбранное сообщение в масисв
-							concStr_c(Message, indexStr, textBuf); //объединяем (логика описана выше)
+							sprintf_s(Message, SIZE, "%d%s %s", (index + 1), ".", textBuf); //объеденяет строку 
+						
 
 
 							MessageBox(NULL, Message, "Выбран элемент", MB_OK);
