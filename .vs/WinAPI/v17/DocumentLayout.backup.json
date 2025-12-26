@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7CABF1B4-749A-46DE-92EF-8D59B7A5E66F}|MainWindow\\MainWindow.vcxproj|C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\MainWindow\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{7CABF1B4-749A-46DE-92EF-8D59B7A5E66F}|MainWindow\\MainWindow.vcxproj|solutionrelative:MainWindow\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{E74D5800-AB38-44DB-A2CD-0286DB9B1B4C}|ListBox\\ListBox.vcxproj|C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\ListBox\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E74D5800-AB38-44DB-A2CD-0286DB9B1B4C}|ListBox\\ListBox.vcxproj|solutionrelative:ListBox\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -28,13 +28,13 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "main.cpp",
-              "DocumentMoniker": "C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\MainWindow\\main.cpp",
-              "RelativeDocumentMoniker": "MainWindow\\main.cpp",
-              "ToolTip": "C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\MainWindow\\main.cpp",
-              "RelativeToolTip": "MainWindow\\main.cpp",
-              "ViewState": "AgIAAE4AAAAAAAAAAAAAAFkAAAAAAAAAAAAAAA==",
+              "DocumentMoniker": "C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\ListBox\\main.cpp",
+              "RelativeDocumentMoniker": "ListBox\\main.cpp",
+              "ToolTip": "C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\ListBox\\main.cpp",
+              "RelativeToolTip": "ListBox\\main.cpp",
+              "ViewState": "AgIAAMwAAAAAAAAAAAAwwNQAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-12-25T16:49:47.079Z",
+              "WhenOpened": "2025-12-26T14:03:43.615Z",
               "EditorCaption": ""
             }
           ]

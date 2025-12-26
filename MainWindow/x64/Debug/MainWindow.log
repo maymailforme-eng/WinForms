@@ -1,1 +1,4 @@
-﻿  MainWindow.vcxproj -> C:\Users\mayma\OneDrive\Рабочий стол\Академия ТОП\01_Учеба\07_WPF, WinForms\Repository\WinForms\WinForms\x64\Debug\MainWindow.exe
+﻿  main.cpp
+C:\Users\mayma\OneDrive\Рабочий стол\Академия ТОП\01_Учеба\07_WPF, WinForms\Repository\WinForms\WinForms\MainWindow\main.cpp(3,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\mayma\OneDrive\Рабочий стол\Академия ТОП\01_Учеба\07_WPF, WinForms\Repository\WinForms\WinForms\MainWindow\main.cpp(105,12): warning C4244: 'return': conversion from 'WPARAM' to 'int', possible loss of data
+  MainWindow.vcxproj -> C:\Users\mayma\OneDrive\Рабочий стол\Академия ТОП\01_Учеба\07_WPF, WinForms\Repository\WinForms\WinForms\x64\Debug\MainWindow.exe

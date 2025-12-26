@@ -1,1 +1,4 @@
-﻿  ComboBox.vcxproj -> C:\Users\mayma\OneDrive\Рабочий стол\Академия ТОП\01_Учеба\07_WPF, WinForms\Repository\WinForms\WinForms\x64\Debug\ComboBox.exe
+﻿  main.cpp
+C:\Users\mayma\OneDrive\Рабочий стол\Академия ТОП\01_Учеба\07_WPF, WinForms\Repository\WinForms\WinForms\ComboBox\main.cpp(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\mayma\OneDrive\Рабочий стол\Академия ТОП\01_Учеба\07_WPF, WinForms\Repository\WinForms\WinForms\ComboBox\main.cpp(50,17): warning C4244: 'initializing': conversion from 'LRESULT' to 'INT', possible loss of data
+  ComboBox.vcxproj -> C:\Users\mayma\OneDrive\Рабочий стол\Академия ТОП\01_Учеба\07_WPF, WinForms\Repository\WinForms\WinForms\x64\Debug\ComboBox.exe
