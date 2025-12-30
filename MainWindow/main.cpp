@@ -39,7 +39,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 	// 6. Иконки, курсор, фон
 	wClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 	wClass.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wClass.hbrBackground = (HBRUSH)COLOR_WINDOW;
+	wClass.hbrBackground = CreateSolidBrush(RGB(128, 128, 128));
 
 	// 7. Меню (если есть)
 	wClass.lpszMenuName = NULL;
@@ -106,6 +106,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 
 
 	ShowWindow(hwnd, nCmdShow);
+	UpdateWindow(hwnd);
 
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -133,9 +134,84 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg,	WPARAM wParam, LPARAM lParam)
 
 	switch (uMsg) {
 		case WM_CREATE: 
-			{}break;
+
+		{
+
+			HWND hStatic = CreateWindowEx
+			(
+				NULL,// exStyle
+				"Static", //Window class
+				"Этот теткс создан функцией CreateWindowEx()", //Windows text SendMessage (hwnd, WM_STTTEXT, .....)
+				WS_CHILD | WS_VISIBLE, //Window styles
+				10, 10,//position
+				500, 25,//Size
+				hwnd, //Parent Window
+				(HMENU)1000, //ResourceID
+				GetModuleHandle(NULL), //hInstance
+				NULL
+			);
+
+
+
+			HWND hEdeit = CreateWindowEx
+			(
+				NULL,
+				"Edit",
+				"",
+				WS_CHILD | WS_VISIBLE | WS_BORDER,
+				10, 40,
+				500, 22,
+				hwnd,
+				(HMENU)1001,
+				GetModuleHandle(NULL),
+				NULL
+
+			);
+
+			CreateWindowEx(NULL,
+						"Button",
+						"Применить",
+						WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+						410, 70,
+						100, 25,
+						hwnd,
+						(HMENU)1002,
+						GetModuleHandle(NULL),
+						NULL);
+
+		
+		
+		
+		
+		
+		}break;
 		case WM_COMMAND: 
-			{}break;
+			{
+		
+			switch (LOWORD(wParam))
+			{
+			case 1002:
+			{
+				CHAR sz_buffer[MAX_PATH] = {};
+				HWND hEdit = GetDlgItem(hwnd, 1001);
+				HWND hStatic = GetDlgItem(hwnd, 1000);
+
+
+				SendMessage(hEdit, WM_GETTEXT, MAX_PATH, (LPARAM)sz_buffer);
+				SendMessage(hStatic, WM_SETTEXT, 0, (LPARAM)sz_buffer);
+
+
+
+			}break;
+
+
+			}
+		
+		
+		
+		
+		
+			}break;
 
 		case WM_PAINT:
 		{
