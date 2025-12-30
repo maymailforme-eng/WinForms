@@ -64,6 +64,23 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 	// 2. Создание окна
 	//
 
+
+
+	// Получаем размеры экрана
+	INT screenWidth = GetSystemMetrics(SM_CXSCREEN);
+	INT screenHeight = GetSystemMetrics(SM_CYSCREEN);
+
+	// Задаем размеры окна
+	FLOAT Percent = 0.75f;
+	int windowWidth = (INT)(screenWidth * Percent);
+	int windowHeight = (INT)(screenHeight * Percent);
+
+	// Вычисляем позицию для центрирования
+	int x = (screenWidth - windowWidth) / 2;
+	int y = (screenHeight - windowHeight) / 2;
+
+
+
 	HWND hwnd = CreateWindowEx
 	(
 		NULL, //exStyles
@@ -71,8 +88,8 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 		g_sz_CLASS_NAME, //Window title
 		WS_OVERLAPPEDWINDOW, //Стиль окна. Набор стилей всегда зависит от класса окна. 
 		//Стиль главного окна всегда WS_OVERLAPPEDWINDOW
-		CW_USEDEFAULT, CW_USEDEFAULT, //начальная позиция окна при запуске
-		CW_USEDEFAULT, CW_USEDEFAULT, //размер окна 
+		x, y, //начальная позиция окна при запуске
+		windowWidth, windowHeight, //размер окна 
 		NULL, //Parent window
 		NULL, //hMenu - для главного окна этот параметр определяет главное меню.
 		//Для дочернего окна (Control) - содержит ResorceID дочернего окна
@@ -112,11 +129,42 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg,	WPARAM wParam, LPARAM lParam)
 {
+	static CONST INT SIZE = 256;
+
 	switch (uMsg) {
 		case WM_CREATE: 
 			{}break;
 		case WM_COMMAND: 
 			{}break;
+
+		case WM_PAINT:
+		{
+			CHAR setText[SIZE] = {};
+
+			///////////////////////////////////////////////////////////////////////////////////////////////
+			//получаем размеры окна
+			//
+
+			RECT rect; //сттруктура содержащая в себе координаты Х У левого верхнего и правого нижнего угла
+			GetWindowRect(hwnd, &rect); //запрос получения структуры 
+
+			int width = rect.right - rect.left;    // Полная ширина окна
+			int height = rect.bottom - rect.top;   // Полная высота окна
+			int x = rect.left;                     // Позиция X на экране
+			int y = rect.top;                      // Позиция Y на экране
+
+
+			sprintf_s(setText, SIZE, "%s   %s: %d; %s: %d; %s: %d; %s: %d;", 
+				g_sz_CLASS_NAME,
+				"Ширина", width, 
+				"Высота", height,
+				"X", x,
+				"Y", y );
+
+			SetWindowText(hwnd, setText);
+			
+		
+		}break;
 		case WM_DESTROY: 
 			{ PostQuitMessage(0); }		 
 			break;

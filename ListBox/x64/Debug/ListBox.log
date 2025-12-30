@@ -1,1 +1,5 @@
-﻿  ListBox.vcxproj -> C:\Users\mayma\OneDrive\Рабочий стол\Академия ТОП\01_Учеба\07_WPF, WinForms\Repository\WinForms\WinForms\x64\Debug\ListBox.exe
+﻿  main.cpp
+C:\Users\mayma\OneDrive\Рабочий стол\Академия ТОП\01_Учеба\07_WPF, WinForms\Repository\WinForms\WinForms\ListBox\main.cpp(21,2): warning C4002: too many arguments for function-like macro invocation 'DialogBoxA'
+C:\Users\mayma\OneDrive\Рабочий стол\Академия ТОП\01_Учеба\07_WPF, WinForms\Repository\WinForms\WinForms\ListBox\main.cpp(91,16): warning C4244: 'initializing': conversion from 'LRESULT' to 'INT', possible loss of data
+C:\Users\mayma\OneDrive\Рабочий стол\Академия ТОП\01_Учеба\07_WPF, WinForms\Repository\WinForms\WinForms\ListBox\main.cpp(108,17): warning C4244: 'initializing': conversion from 'LRESULT' to 'INT', possible loss of data
+  ListBox.vcxproj -> C:\Users\mayma\OneDrive\Рабочий стол\Академия ТОП\01_Учеба\07_WPF, WinForms\Repository\WinForms\WinForms\x64\Debug\ListBox.exe
