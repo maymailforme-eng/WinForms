@@ -1,0 +1,8 @@
+﻿  main.cpp
+C:\Users\mayma\OneDrive\Рабочий стол\Академия ТОП\01_Учеба\07_WPF, WinForms\Repository\WinForms\WinForms\CalcHW\main.cpp(245,12): warning C4244: 'return': conversion from 'WPARAM' to 'int', possible loss of data
+C:\Users\mayma\OneDrive\Рабочий стол\Академия ТОП\01_Учеба\07_WPF, WinForms\Repository\WinForms\WinForms\CalcHW\main.cpp(278,6): warning C4312: 'type cast': conversion from 'const INT' to 'HMENU' of greater size
+C:\Users\mayma\OneDrive\Рабочий стол\Академия ТОП\01_Учеба\07_WPF, WinForms\Repository\WinForms\WinForms\CalcHW\main.cpp(294,6): warning C4312: 'type cast': conversion from 'const INT' to 'HMENU' of greater size
+C:\Users\mayma\OneDrive\Рабочий стол\Академия ТОП\01_Учеба\07_WPF, WinForms\Repository\WinForms\WinForms\CalcHW\main.cpp(454,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\mayma\OneDrive\Рабочий стол\Академия ТОП\01_Учеба\07_WPF, WinForms\Repository\WinForms\WinForms\CalcHW\main.cpp(455,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\mayma\OneDrive\Рабочий стол\Академия ТОП\01_Учеба\07_WPF, WinForms\Repository\WinForms\WinForms\CalcHW\main.cpp(456,18): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\mayma\OneDrive\Рабочий стол\Академия ТОП\01_Учеба\07_WPF, WinForms\Repository\WinForms\WinForms\CalcHW\main.cpp(457,19): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
