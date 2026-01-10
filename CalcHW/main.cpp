@@ -4,11 +4,10 @@
 #include <cstdlib> 
 #include <cstdio>
 #include <cmath>
-#include <stdexcept> 
 #include "resource.h"
 
 
-//константы 
+//именнованные константы препроцессора
 #define ID_BUTTON_ZIRO 1010
 #define ID_BUTTON_ONE 1011
 #define ID_BUTTON_TWO 1012
@@ -55,7 +54,7 @@
 
 
 
-
+//константы
 CONST INT QNT_BUTTON = 19;
 
 
@@ -128,11 +127,15 @@ CONST ButtonMaker buttonList[QNT_BUTTON] = {
 CONST CHAR g_sz_CLASS_NAME[] = "CalcHW"; //им€ класса окна
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+
 VOID ButtonNUM(HWND hwndFillRecipient, INT num);
 VOID ButtonOperation(HWND hwndStaticFill, HWND hwndStaticFillBuffer, CONST CHAR* signPrev);
 VOID ButtonEnter(HWND hwndStaticFill, HWND hwndStaticFillBuffer);
+
 FLOAT sstrToFloat(CHAR* sstr);
 FLOAT operation(FLOAT num1, FLOAT num2, CHAR sign);
+
+BOOL haveSign(CHAR sign);
 
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, INT nCmdShow) //точка запуска
@@ -328,12 +331,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			case ID_BUTTON_NINE:		ButtonNUM(staticFillBuffer, 9); break;
 
 			//OPERATION BUTTON........................................................................
-			case ID_BUTTON_PLUS:	ButtonOperation(staticFill, staticFillBuffer, "+"); break;
-			case ID_BUTTON_MINUS:	ButtonOperation(staticFill, staticFillBuffer, "-"); break;
-			case ID_BUTTON_MULTI:	ButtonOperation(staticFill, staticFillBuffer, "*"); break;
-			case ID_BUTTON_DIV:		ButtonOperation(staticFill, staticFillBuffer, "/"); break;
+			case ID_BUTTON_PLUS:		ButtonOperation(staticFill, staticFillBuffer, "+"); break;
+			case ID_BUTTON_MINUS:		ButtonOperation(staticFill, staticFillBuffer, "-"); break;
+			case ID_BUTTON_MULTI:		ButtonOperation(staticFill, staticFillBuffer, "*"); break;
+			case ID_BUTTON_DIV:			ButtonOperation(staticFill, staticFillBuffer, "/"); break;
 
-			case ID_BUTTON_ENTER:  ButtonEnter(staticFill, staticFillBuffer); break;
+			case ID_BUTTON_ENTER:		ButtonEnter(staticFill, staticFillBuffer); break;
 
 			case ID_BUTTON_DOT:
 			{
@@ -349,7 +352,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 					SendMessage(staticFillBuffer, WM_SETTEXT, 0, (LPARAM)setText);
 				}
 
-
 			} break;
 
 			case ID_BUTTON_CLEAR:
@@ -357,49 +359,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				SendMessage(staticFill, WM_SETTEXT, 0, (LPARAM)"");
 				SendMessage(staticFillBuffer, WM_SETTEXT, 0, (LPARAM)"");
 			} break;
-
-			
-
-
-
 		}
 
 
-
-
-
-
-
 	}break;
 
-	case WM_PAINT:
-	{
-		CHAR setText[SIZE] = {};
-
-		///////////////////////////////////////////////////////////////////////////////////////////////
-		//получаем размеры окна
-		//
-
-		RECT rect; //сттруктура содержаща€ в себе координаты ’ ” левого верхнего и правого нижнего угла
-		GetWindowRect(hwnd, &rect); //запрос получени€ структуры 
-
-		int width = rect.right - rect.left;    // ѕолна€ ширина окна
-		int height = rect.bottom - rect.top;   // ѕолна€ высота окна
-		int x = rect.left;                     // ѕозици€ X на экране
-		int y = rect.top;                      // ѕозици€ Y на экране
-
-
-		sprintf_s(setText, SIZE, "%s   %s: %d; %s: %d; %s: %d; %s: %d;",
-			g_sz_CLASS_NAME,
-			"Ўирина", width,
-			"¬ысота", height,
-			"X", x,
-			"Y", y);
-
-		SetWindowText(hwnd, setText);
-
-
-	}break;
 
 	case WM_GETMINMAXINFO: //отправл€ет при  попытке изенени€ размера окна (установлен выбор раст€жки рамки)
 	{
@@ -460,9 +424,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			}
 		}
 
-
-
-
 	}
 	break;
 
@@ -507,21 +468,14 @@ VOID ButtonNUM(HWND hwndFillRecipient, INT num) //добавит в буферное окно число,
 		{
 			sprintf_s(setText, SIZE, "%d", num);
 		}
-
-		
-	
 	}
 
-
 	SendMessage(hwndFillRecipient, WM_SETTEXT, 0, (LPARAM)setText);
-
 }
 
 
 VOID ButtonOperation(HWND hwndStaticFill, HWND hwndStaticFillBuffer, CONST CHAR* signNext)
 {
-
-
 	CONST INT SIZE = 256;
 	CHAR currentTextStaticFill[SIZE] = {};
 	CHAR currentTextBuffer[SIZE] = {};
@@ -529,6 +483,8 @@ VOID ButtonOperation(HWND hwndStaticFill, HWND hwndStaticFillBuffer, CONST CHAR*
 
 	SendMessage(hwndStaticFill, WM_GETTEXT, SIZE, (LPARAM)currentTextStaticFill);
 	SendMessage(hwndStaticFillBuffer, WM_GETTEXT, SIZE, (LPARAM)currentTextBuffer);
+
+
 
 	//если в статическом окне уже есть операнд
 	if (currentTextStaticFill[0] != '\0')
@@ -540,15 +496,13 @@ VOID ButtonOperation(HWND hwndStaticFill, HWND hwndStaticFillBuffer, CONST CHAR*
 		CHAR sign = currentTextStaticFill[length - 1];
 
 
-		if (currentTextBuffer[0] != '\0') //буфер не пуст
+		if (currentTextBuffer[0] != '\0') //буфер не пуст.......................................................
 		{
 			FLOAT numStaticFillBuffer = sstrToFloat(currentTextBuffer);
 
 			//провер€ем есть ли уже знак в статическом поле
-			if (sign == '+' ||
-				sign == '-' ||
-				sign == '*' || 
-				sign == '/')
+
+			if (haveSign(sign) && length >=3)
 			{
 
 				if (numStaticFillBuffer == 0 && sign == '/') //проверка делени€ на нуль
@@ -579,26 +533,16 @@ VOID ButtonOperation(HWND hwndStaticFill, HWND hwndStaticFillBuffer, CONST CHAR*
 			}
 
 
-
-
-
-
-
-
-
-
 		}
-		else //буффер пуст (после =) записываем знак в поле
+		else //буффер пуст (после =) записываем знак в поле........................................................
 		{
 
+			INT length = strlen(currentTextStaticFill);
 			//провер€ем есть ли уже знак в статическом поле
-			if (sign == '+' ||
-				sign == '-' ||
-				sign == '*' ||
-				sign == '/')
+			if (haveSign(sign) && length >=3)
 			{
 				//мен€ем знак если уже был записан 
-				INT length = strlen(currentTextStaticFill);
+
 				currentTextStaticFill[length - 1] = signNext[0];
 				SendMessage(hwndStaticFill, WM_SETTEXT, 0, (LPARAM)currentTextStaticFill);
 
@@ -608,12 +552,7 @@ VOID ButtonOperation(HWND hwndStaticFill, HWND hwndStaticFillBuffer, CONST CHAR*
 				sprintf_s(setText, SIZE, "%s %s", currentTextStaticFill, signNext);
 				SendMessage(hwndStaticFill, WM_SETTEXT, 0, (LPARAM)setText);
 			}
-				
-
-
 		}
-
-
 	}
 	//если в статическом окне еще нет операндов
 	else
@@ -630,9 +569,6 @@ VOID ButtonOperation(HWND hwndStaticFill, HWND hwndStaticFillBuffer, CONST CHAR*
 
 		SendMessage(hwndStaticFillBuffer, WM_SETTEXT, 0, (LPARAM)"");
 	}
-
-
-
 }
 
 
@@ -648,17 +584,15 @@ VOID ButtonEnter(HWND hwndStaticFill, HWND hwndStaticFillBuffer)
 	SendMessage(hwndStaticFill, WM_GETTEXT, SIZE, (LPARAM)currentTextStaticFill);
 	SendMessage(hwndStaticFillBuffer, WM_GETTEXT, SIZE, (LPARAM)currentTextBuffer);
 
-	if (currentTextBuffer[0] == '\0') //если буфер пуст
-	{
-		return;
-	}
+	if (currentTextBuffer[0] == '\0') return; //если буфер пуст
+
 
 	if (currentTextStaticFill[0] == '\0') //если основное поле пустое, записываем в него данные из буфера
 	{
 		SendMessage(hwndStaticFill, WM_SETTEXT, 0, (LPARAM)currentTextBuffer);
 		SendMessage(hwndStaticFillBuffer, WM_SETTEXT, 0, (LPARAM)"");
 	}
-	else //если основное поле имеет данные
+	else //если основное поле имеет данные............................................................................
 	{
 		FLOAT numStaticFill = sstrToFloat(currentTextStaticFill); //считываем число из основного
 		FLOAT numStaticFillBuffer = sstrToFloat(currentTextBuffer); //считываем число из буферного пол€
@@ -676,14 +610,11 @@ VOID ButtonEnter(HWND hwndStaticFill, HWND hwndStaticFillBuffer)
 
 
 		//провер€ем содержит ли основное поле знак
-		if (sign == '+' ||
-			sign == '-' ||
-			sign == '*' ||
-			sign == '/')
+		if (haveSign(sign) && length >= 3)
 		{
 
 			FLOAT result = operation(numStaticFill, numStaticFillBuffer, sign); //результат операции
-			float rounded = round(result);
+			float rounded = round(result); 
 
 			if (fabs(result - rounded) < 1e-9f) sprintf_s(setText, SIZE, "%d", (INT)result);
 			else { sprintf_s(setText, SIZE, "%f", result); }
@@ -700,10 +631,6 @@ VOID ButtonEnter(HWND hwndStaticFill, HWND hwndStaticFillBuffer)
 
 	}
 	
-
-
-
-
 }
 
 
@@ -741,3 +668,11 @@ FLOAT operation(FLOAT num1, FLOAT num2, CHAR sign)
 	return -1;
 }
 
+BOOL haveSign(CHAR sign)
+{
+	if (sign == '+' ||
+		sign == '-' ||
+		sign == '*' ||
+		sign == '/') return true;
+	else false;
+}
