@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{AE1E88E8-B3C4-4488-918F-FC867BD5C4D6}|CalckInClass\\CalckInClass.vcxproj|C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\CalckInClass\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AE1E88E8-B3C4-4488-918F-FC867BD5C4D6}|CalckInClass\\CalckInClass.vcxproj|solutionrelative:CalckInClass\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{FD13C479-3C02-452B-B861-823E73CB022D}|CalcHW\\CalcHW.vcxproj|C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\CalcHW\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{FD13C479-3C02-452B-B861-823E73CB022D}|CalcHW\\CalcHW.vcxproj|solutionrelative:CalcHW\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
@@ -28,11 +32,24 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "main.cpp",
+              "DocumentMoniker": "C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\CalckInClass\\main.cpp",
+              "RelativeDocumentMoniker": "CalckInClass\\main.cpp",
+              "ToolTip": "C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\CalckInClass\\main.cpp",
+              "RelativeToolTip": "CalckInClass\\main.cpp",
+              "ViewState": "AgIAAPQAAAAAAAAAAAAwwPgAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-01-10T16:22:18.249Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\CalcHW\\main.cpp",
               "RelativeDocumentMoniker": "CalcHW\\main.cpp",
               "ToolTip": "C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\CalcHW\\main.cpp",
               "RelativeToolTip": "CalcHW\\main.cpp",
-              "ViewState": "AgIAAEICAAAAAAAAAAAYwEkCAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADYBAAAAAAAAAAAgwFEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-01-02T09:53:39.349Z",
               "EditorCaption": ""
