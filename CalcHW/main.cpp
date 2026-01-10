@@ -491,7 +491,7 @@ VOID ButtonNUM(HWND hwndFillRecipient, INT num) //добавит в буферное окно число,
 
 	SendMessage(hwndFillRecipient, WM_GETTEXT, SIZE, (LPARAM)currentText);
 
-	if (currentText[0] != '0')
+	if (currentText[0] != '0') //если в поле окна получателя есть цифра отличная от нуля протсо дописывам цифру
 	{
 		sprintf_s(setText, SIZE, "%s%d", currentText, num);
 	}
@@ -545,15 +545,15 @@ VOID ButtonOperation(HWND hwndStaticFill, HWND hwndStaticFillBuffer, CONST CHAR*
 			FLOAT numStaticFillBuffer = sstrToFloat(currentTextBuffer);
 
 			//проверяем есть ли уже знак в статическом поле
-			if (strchr(currentTextStaticFill, '+') != nullptr ||
-				strchr(currentTextStaticFill, '-') != nullptr ||
-				strchr(currentTextStaticFill, '*') != nullptr ||
-				strchr(currentTextStaticFill, '/') != nullptr)
+			if (sign == '+' ||
+				sign == '-' ||
+				sign == '*' || 
+				sign == '/')
 			{
 
-				if (numStaticFillBuffer == 0 && sign == '/')
+				if (numStaticFillBuffer == 0 && sign == '/') //проверка деления на нуль
 				{
-					SendMessage(hwndStaticFillBuffer, WM_SETTEXT, 0, (LPARAM)"Деление на ноль");
+					SendMessage(hwndStaticFillBuffer, WM_SETTEXT, 0, (LPARAM)""); //очищаем поле буфера
 					return;
 				}
 
@@ -590,15 +590,27 @@ VOID ButtonOperation(HWND hwndStaticFill, HWND hwndStaticFillBuffer, CONST CHAR*
 		}
 		else //буффер пуст (после =) записываем знак в поле
 		{
+
 			//проверяем есть ли уже знак в статическом поле
-			if (strchr(currentTextStaticFill, '+') != nullptr ||
-				strchr(currentTextStaticFill, '-') != nullptr ||
-				strchr(currentTextStaticFill, '*') != nullptr ||
-				strchr(currentTextStaticFill, '/') != nullptr) return;
+			if (sign == '+' ||
+				sign == '-' ||
+				sign == '*' ||
+				sign == '/')
+			{
+				//меняем знак если уже был записан 
+				INT length = strlen(currentTextStaticFill);
+				currentTextStaticFill[length - 1] = signNext[0];
+				SendMessage(hwndStaticFill, WM_SETTEXT, 0, (LPARAM)currentTextStaticFill);
+
+			}
+			else 
+			{
+				sprintf_s(setText, SIZE, "%s %s", currentTextStaticFill, signNext);
+				SendMessage(hwndStaticFill, WM_SETTEXT, 0, (LPARAM)setText);
+			}
 				
 
-			sprintf_s(setText, SIZE, "%s %s", currentTextStaticFill, signNext);
-			SendMessage(hwndStaticFill, WM_SETTEXT, 0, (LPARAM)setText);
+
 		}
 
 
@@ -644,6 +656,7 @@ VOID ButtonEnter(HWND hwndStaticFill, HWND hwndStaticFillBuffer)
 	if (currentTextStaticFill[0] == '\0') //если основное поле пустое, записываем в него данные из буфера
 	{
 		SendMessage(hwndStaticFill, WM_SETTEXT, 0, (LPARAM)currentTextBuffer);
+		SendMessage(hwndStaticFillBuffer, WM_SETTEXT, 0, (LPARAM)"");
 	}
 	else //если основное поле имеет данные
 	{
@@ -657,16 +670,16 @@ VOID ButtonEnter(HWND hwndStaticFill, HWND hwndStaticFillBuffer)
 
 		if (numStaticFillBuffer == 0 && sign == '/') //защита от деления на 0
 		{
-			SendMessage(hwndStaticFillBuffer, WM_SETTEXT, 0, (LPARAM)"Деление на ноль");
+			SendMessage(hwndStaticFillBuffer, WM_SETTEXT, 0, (LPARAM)"");
 			return;
 		}
 
 
 		//проверяем содержит ли основное поле знак
-		if (strchr(currentTextStaticFill, '+') != nullptr ||
-			strchr(currentTextStaticFill, '-') != nullptr ||
-			strchr(currentTextStaticFill, '*') != nullptr ||
-			strchr(currentTextStaticFill, '/') != nullptr)
+		if (sign == '+' ||
+			sign == '-' ||
+			sign == '*' ||
+			sign == '/')
 		{
 
 			FLOAT result = operation(numStaticFill, numStaticFillBuffer, sign); //результат операции
