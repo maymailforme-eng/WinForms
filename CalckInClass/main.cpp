@@ -15,6 +15,9 @@
 #define g_i_BUTTON_START_X			g_i_START_X
 #define g_i_BUTTON_START_Y			(g_i_START_Y + g_i_DISPLAY_HEIGTH + g_i_INTERVAL)
 
+#define g_i_WINDOW_WIDTH			g_i_DISPLAY_WIDTH + g_i_START_X * 2 + 16
+#define g_i_WINDOW_HEIGTH			g_i_DISPLAY_HEIGTH + g_i_START_Y * 2 + 4 * (g_i_BUTTON_SIZE + g_i_INTERVAL) + 38
+
 #define g_i_BUTTON_X_POSITION(SHIFT)	g_i_BUTTON_START_X + (g_i_BUTTON_SIZE + g_i_INTERVAL) * (SHIFT)
 #define g_i_BUTTON_Y_POSITION(SHIFT)	g_i_BUTTON_START_Y + (g_i_BUTTON_SIZE + g_i_INTERVAL) * (SHIFT)
 
@@ -85,10 +88,10 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 		NULL, //exStyles
 		g_sz_WINDOW_CLASS, //ClassName
 		g_sz_WINDOW_CLASS, //Window title
-		WS_OVERLAPPEDWINDOW, //—тиль окна. Ќабор стилей всегда зависит от класса окна. 
+		WS_OVERLAPPEDWINDOW ^ WS_THICKFRAME ^ WS_MAXIMIZEBOX, //—тиль окна. Ќабор стилей всегда зависит от класса окна. 
 		//—тиль главного окна всегда WS_OVERLAPPEDWINDOW
 		CW_USEDEFAULT, CW_USEDEFAULT, //начальна€ позици€ окна при запуске
-		CW_USEDEFAULT, CW_USEDEFAULT, //размер окна 
+		g_i_WINDOW_WIDTH, g_i_WINDOW_HEIGTH, //размер окна 
 		NULL, //Parent window
 		NULL, //hMenu - дл€ главного окна этот параметр определ€ет главное меню.
 		//ƒл€ дочернего окна (Control) - содержит ResorceID дочернего окна
