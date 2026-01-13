@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #undef UNICODE
 #include <Windows.h>
 #include "resource.h"
@@ -141,6 +142,8 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_CREATE: 
 	{
+		AllocConsole();
+
 		HWND hEdit = CreateWindowEx(
 			NULL, "Edit", "0", 
 			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_RIGHT,
@@ -270,11 +273,113 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	
 	
 	}break;
-	case WM_COMMAND: {} break;
-	case WM_DESTROY: { PostQuitMessage(0); } break;
+	case WM_COMMAND: 
+	{
+		CHAR sz_digit[2] = {};
+		CHAR sz_display[MAX_PATH];
+		HWND hEditDisplay = GetDlgItem(hwnd, IDC_DISPLAY);
+		SendMessage(hEditDisplay, WM_GETTEXT, MAX_PATH, (LPARAM)sz_display);
+
+		if (LOWORD(wParam) >= ID_BUTTON_0 && LOWORD(wParam) <= ID_BUTTON_9) //обработка кнопок
+		{
+			sz_digit[0] = LOWORD(wParam) - ID_BUTTON_0 + '0';
+			if (sz_display[0] == '0' && sz_display[1] != '.')
+			{
+				strcpy(sz_display, sz_digit);
+			}
+			else { strcat(sz_display, sz_digit); }
+			
+			SendMessage(hEditDisplay, WM_SETTEXT, 0, (LPARAM)sz_display);
+		}
+		else if (LOWORD(wParam) == ID_BUTTON_POINT)
+		{
+			if (strchr(sz_display, '.')) break;
+			strcat(sz_display, ".");
+			SendMessage(hEditDisplay, WM_SETTEXT, 0, (LPARAM)sz_display);
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	} break;
+
+
+	case WM_KEYDOWN:
+	{
+		CHAR sz_key[8] = {};
+		if (wParam >= '0' && wParam <= '9')
+		{
+			BOOL isShiftPressed = GetKeyState(VK_SHIFT) & 0x8000;
+			BOOL isShiftDown = GetKeyState(VK_LSHIFT) & 0x8000 ||
+				GetKeyState(VK_RSHIFT) & 0x8000;
+
+			if (isShiftPressed && wParam == '8') { SendMessage(GetDlgItem(hwnd, ID_BUTTON_ASTER), BM_SETSTATE, TRUE, NULL); break;
+			}
+
+
+
+			SendMessage(GetDlgItem(hwnd, wParam - '0' + ID_BUTTON_0), BM_SETSTATE, TRUE, NULL); //имитация зажатии кнопки
+		}
+		else if (wParam >= VK_NUMPAD0 && wParam <= VK_NUMPAD9)
+		{
+			SendMessage(GetDlgItem(hwnd, wParam - VK_NUMPAD0 + ID_BUTTON_0), BM_SETSTATE, TRUE, NULL); //имитация зажатии кнопки
+		}
+		switch (wParam)
+		{
+		case VK_OEM_PLUS: SendMessage(GetDlgItem(hwnd, ID_BUTTON_PLUS), BM_SETSTATE, TRUE, NULL); break;
+		case VK_OEM_MINUS: SendMessage(GetDlgItem(hwnd, ID_BUTTON_MINUS), BM_SETSTATE, TRUE, NULL); break;
+		case VK_MULTIPLY:
+		{
+
+
+
+		} break;
+			
+
+
+		}
+
+
+	} break;
+
+	case WM_KEYUP: 
+	{
+		if (wParam >= '0' && wParam <= '9')
+		{
+			BOOL isShiftPressed = GetKeyState(VK_SHIFT) & 0x8000;
+			BOOL isShiftDown = GetKeyState(VK_LSHIFT) & 0x8000 ||
+				GetKeyState(VK_RSHIFT) & 0x8000;
+
+			if (isShiftPressed && wParam == '8') {SendMessage(GetDlgItem(hwnd, ID_BUTTON_ASTER), BM_SETSTATE, FALSE, NULL); break;
+		}
+
+
+			SendMessage(GetDlgItem(hwnd, wParam - '0' + ID_BUTTON_0), BM_SETSTATE, FALSE, NULL); //имитация отжимает кнопку
+			SendMessage(hwnd, WM_COMMAND, LOWORD(wParam - '0' + ID_BUTTON_0), 0);
+		}
+		else if (wParam >= VK_NUMPAD0 && wParam <= VK_NUMPAD9)
+		{
+			SendMessage(GetDlgItem(hwnd, wParam - VK_NUMPAD0 + ID_BUTTON_0), BM_SETSTATE, FALSE, NULL); //имитация зажатии кнопки
+			SendMessage(hwnd, WM_COMMAND, LOWORD(wParam - VK_NUMPAD0 + ID_BUTTON_0), 0);
+		}
+
+	} break;
+
+
+	case WM_DESTROY: 
+	{ 
+		FreeConsole();
+		PostQuitMessage(0); 
+	} break;
 	case WM_CLOSE: { DestroyWindow(hwnd); } break;
 	default: return DefWindowProc(hwnd, uMsg, wParam, lParam);
 	}
+
 	return FALSE;
 
 }
