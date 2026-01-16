@@ -269,3 +269,4 @@ __pycache__/
 *.pyc
 .vs/WinAPI/v17/ipch/AutoPCH/6f6e32da1d850426/MAIN.ipch
 .vs/WinAPI/v17/ipch/AutoPCH/acdf7d357a4ed615/MAIN.ipch
+*.ipch
