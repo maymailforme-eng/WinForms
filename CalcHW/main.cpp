@@ -21,8 +21,8 @@
 
 
 #define ID_BUTTON_DOT 1020
-#define ID_BUTTON_PLUS 1021
-#define ID_BUTTON_MINUS 1022
+#define IDC_BUTTON_PLUS 1021
+#define IDC_BUTTON_MINUS 1022
 #define ID_BUTTON_ENTER 1023
 #define ID_BUTTON_MULTI 1024
 #define ID_BUTTON_DIV 1025
@@ -89,14 +89,14 @@ CONST ButtonMaker buttonList[QNT_BUTTON] = {
 			{(INT)ID_BUTTON_CLEAR,	"BUTTON", "C", M, S, W, H},
 			{(INT)ID_BUTTON_DIV,	"BUTTON", "/", (W + 2 * M), S, W, H},
 			{(INT)ID_BUTTON_MULTI,	"BUTTON", "*", (2 * W + 3 * M), S, W, H},
-			{(INT)ID_BUTTON_MINUS,	"BUTTON", "-", (3 * W + 4 * M), S, W, H},
+			{(INT)IDC_BUTTON_MINUS,	"BUTTON", "-", (3 * W + 4 * M), S, W, H},
 
 	//Line 2...................................................................
 
 			{(INT)ID_BUTTON_SEVEN,	"BUTTON", "7", M, (S + H + M), W, H},
 			{(INT)ID_BUTTON_EITH,	"BUTTON", "8", (W + 2 * M), (S + H + M), W, H},
 			{(INT)ID_BUTTON_NINE,	"BUTTON", "9", (2 * W + 3 * M), (S + H + M), W, H},
-			{(INT)ID_BUTTON_PLUS,	"BUTTON", "+", (3 * W + 4 * M), (S + H + M), W, (2 * H + M)}, //двойная по высоте
+			{(INT)IDC_BUTTON_PLUS,	"BUTTON", "+", (3 * W + 4 * M), (S + H + M), W, (2 * H + M)}, //двойная по высоте
 
 	//Line 3..............................................................
 
@@ -331,8 +331,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			case ID_BUTTON_NINE:		ButtonNUM(staticFillBuffer, 9); break;
 
 			//OPERATION BUTTON........................................................................
-			case ID_BUTTON_PLUS:		ButtonOperation(staticFill, staticFillBuffer, "+"); break;
-			case ID_BUTTON_MINUS:		ButtonOperation(staticFill, staticFillBuffer, "-"); break;
+			case IDC_BUTTON_PLUS:		ButtonOperation(staticFill, staticFillBuffer, "+"); break;
+			case IDC_BUTTON_MINUS:		ButtonOperation(staticFill, staticFillBuffer, "-"); break;
 			case ID_BUTTON_MULTI:		ButtonOperation(staticFill, staticFillBuffer, "*"); break;
 			case ID_BUTTON_DIV:			ButtonOperation(staticFill, staticFillBuffer, "/"); break;
 
@@ -392,11 +392,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 											 GetDlgItem(hwnd, ID_BUTTON_CLEAR), 
 											 GetDlgItem(hwnd, ID_BUTTON_DIV),
 											 GetDlgItem(hwnd, ID_BUTTON_MULTI),
-											 GetDlgItem(hwnd, ID_BUTTON_MINUS),
+											 GetDlgItem(hwnd, IDC_BUTTON_MINUS),
 											 GetDlgItem(hwnd, ID_BUTTON_SEVEN),
 											 GetDlgItem(hwnd, ID_BUTTON_EITH),
 											 GetDlgItem(hwnd, ID_BUTTON_NINE),
-											 GetDlgItem(hwnd, ID_BUTTON_PLUS),
+											 GetDlgItem(hwnd, IDC_BUTTON_PLUS),
 											 GetDlgItem(hwnd, ID_BUTTON_FOUR),
 											 GetDlgItem(hwnd, ID_BUTTON_FIVE),
 											 GetDlgItem(hwnd, ID_BUTTON_SIX),

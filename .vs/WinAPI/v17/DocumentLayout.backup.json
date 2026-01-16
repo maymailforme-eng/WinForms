@@ -7,8 +7,12 @@
       "RelativeMoniker": "D:0:0:{AE1E88E8-B3C4-4488-918F-FC867BD5C4D6}|CalckInClass\\CalckInClass.vcxproj|solutionrelative:CalckInClass\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FD13C479-3C02-452B-B861-823E73CB022D}|CalcHW\\CalcHW.vcxproj|C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\CalcHW\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FD13C479-3C02-452B-B861-823E73CB022D}|CalcHW\\CalcHW.vcxproj|solutionrelative:CalcHW\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{AE1E88E8-B3C4-4488-918F-FC867BD5C4D6}|CalckInClass\\CalckInClass.vcxproj|C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\CalckInClass\\resource.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AE1E88E8-B3C4-4488-918F-FC867BD5C4D6}|CalckInClass\\CalckInClass.vcxproj|solutionrelative:CalckInClass\\resource.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AE1E88E8-B3C4-4488-918F-FC867BD5C4D6}|CalckInClass\\CalckInClass.vcxproj|C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\CalckInClass\\Resource.rc||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AE1E88E8-B3C4-4488-918F-FC867BD5C4D6}|CalckInClass\\CalckInClass.vcxproj|solutionrelative:CalckInClass\\Resource.rc||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,28 +34,41 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Resource.rc",
+              "DocumentMoniker": "C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\CalckInClass\\Resource.rc",
+              "RelativeDocumentMoniker": "CalckInClass\\Resource.rc",
+              "ToolTip": "C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\CalckInClass\\Resource.rc",
+              "RelativeToolTip": "CalckInClass\\Resource.rc",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
+              "WhenOpened": "2026-01-16T09:09:51.948Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\CalckInClass\\main.cpp",
               "RelativeDocumentMoniker": "CalckInClass\\main.cpp",
               "ToolTip": "C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\CalckInClass\\main.cpp",
               "RelativeToolTip": "CalckInClass\\main.cpp",
-              "ViewState": "AgIAAFQBAAAAAAAAAAAAAFsBAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAACcBAAAAAAAAAAAqwC4BAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-01-10T16:22:18.249Z",
+              "WhenOpened": "2026-01-16T09:07:31.126Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "main.cpp",
-              "DocumentMoniker": "C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\CalcHW\\main.cpp",
-              "RelativeDocumentMoniker": "CalcHW\\main.cpp",
-              "ToolTip": "C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\CalcHW\\main.cpp",
-              "RelativeToolTip": "CalcHW\\main.cpp",
-              "ViewState": "AgIAAMoBAAAAAAAAAAArwOgBAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-01-02T09:53:39.349Z",
+              "Title": "resource.h",
+              "DocumentMoniker": "C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\CalckInClass\\resource.h",
+              "RelativeDocumentMoniker": "CalckInClass\\resource.h",
+              "ToolTip": "C:\\Users\\mayma\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\\u0410\u043A\u0430\u0434\u0435\u043C\u0438\u044F \u0422\u041E\u041F\\01_\u0423\u0447\u0435\u0431\u0430\\07_WPF, WinForms\\Repository\\WinForms\\WinForms\\CalckInClass\\resource.h",
+              "RelativeToolTip": "CalckInClass\\resource.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-01-16T09:06:54.107Z",
               "EditorCaption": ""
             }
           ]
