@@ -3,11 +3,17 @@
 #include <Windows.h>
 #include<cstdio>
 #include<iostream>
+#include <commctrl.h>
 #include "resource.h"
 
 #define g_i_BUTTON_SIZE				50
 #define g_i_INTERVAL				2
 #define g_i_DOUBLE_BUTTON_SIZE		(g_i_BUTTON_SIZE*2 + g_i_INTERVAL)
+
+#define g_i_BUTTON_IMAGE_SIZE				46
+#define g_i_DOUBLE_BUTTON_IMAGE_SIZE		(g_i_BUTTON_SIZE*2 - 2)
+
+
 
 #define g_i_START_X					10
 #define g_i_START_Y					10
@@ -157,34 +163,76 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			NULL
 		);
 
+		CHAR pathBegin[] = "C:\\Users\\mayma\\OneDrive\\Рабочий стол\\Академия ТОП\\01_Учеба\\07_WPF, WinForms\\Домашняя работа\\Кнопки\\";
+		CHAR pathButtonPrefics[] = "Button_";
+		CHAR pathEnd[] = ".bmp";
+		CHAR path[256] = {};
+
 		CHAR sz_digit[2] = {};
 
 		for (int i = 6; i >= 0; i -= 3)
 		{
 			for (int j = 0; j < 3; j++)
 			{
+				memset(path, 0, sizeof(path)); //сброс строки
+
 				sz_digit[0] = i + j + '1';
 
-				CreateWindowEx(
-					NULL, "BUTTON", sz_digit,
-					WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+				
+				INT NUM = i + j + 1;
+				CHAR numChar = char(NUM + 48);
+				sprintf(path, "%s%s%c%s", pathBegin, pathButtonPrefics, numChar, pathEnd);
+
+				HBITMAP hBitmap = (HBITMAP)LoadImage(
+					NULL,						// HINSTANCE (NULL для файла)
+					path,						// путь к файлу
+					IMAGE_BITMAP,				// тип изображения
+					g_i_BUTTON_IMAGE_SIZE, g_i_BUTTON_IMAGE_SIZE,						// размер (0 = оригинальный)
+					LR_LOADFROMFILE | LR_CREATEDIBSECTION         // флаги
+				);
+
+
+				HWND hButton = CreateWindowEx(
+					NULL, "BUTTON", "",
+					WS_CHILD | WS_VISIBLE | BS_BITMAP,
 					g_i_BUTTON_X_POSITION(j),
 					g_i_BUTTON_Y_POSITION(2 - i / 3),
-					//g_i_BUTTON_START_X +(g_i_BUTTON_SIZE + g_i_INTERVAL) * j, //x position
-					//g_i_BUTTON_START_Y + (g_i_BUTTON_SIZE + g_i_INTERVAL) * (2-i/3), //y position
 					g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
 					hwnd,
 					(HMENU)(IDC_BUTTON_1 + i + j),
 					GetModuleHandle(NULL),
-					NULL
-				);
+					NULL);
+
+
+				SendMessage(hButton, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
+
+
+
 			}
 		}
 
-		//кнопка нуля 
-		CreateWindowEx(
-			NULL, "BUTTON", "0",
-			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+
+
+
+
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//кнопка нуля............................................................................................
+		//memset(path, 0, sizeof(path)); //сброс строки
+		sprintf(path, "%s%s%s", pathBegin, "Button_0", pathEnd);
+
+		HBITMAP hBitmap = (HBITMAP)LoadImage(
+			NULL,						// HINSTANCE (NULL для файла)
+			path,						// путь к файлу
+			IMAGE_BITMAP,				// тип изображения
+			g_i_DOUBLE_BUTTON_IMAGE_SIZE, g_i_BUTTON_IMAGE_SIZE,						// размер (0 = оригинальный)
+			LR_LOADFROMFILE | LR_CREATEDIBSECTION         // флаги
+		);
+
+
+		HWND hButton_0 = CreateWindowEx(
+			NULL, "BUTTON", "",
+			WS_CHILD | WS_VISIBLE | BS_BITMAP,
 			g_i_BUTTON_X_POSITION(0),
 			g_i_BUTTON_Y_POSITION(3),
 			g_i_DOUBLE_BUTTON_SIZE, g_i_BUTTON_SIZE,
@@ -194,7 +242,9 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			NULL
 		);
 
+		SendMessage(hButton_0, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
 
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//кнопка точки........................................................................
 		CreateWindowEx(
 			NULL, "BUTTON", ".",
@@ -209,15 +259,30 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		);
 
 
-
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//кнопка операций ..................................................................
 		CHAR sz_operation[2] = {};
+		CONST CHAR* name[] = {"Div", "Multy", "Minus", "Plus", };
+
 		for (int i = 0; i < 4; i++)
 		{
+			sprintf(path, "%s%s%s", pathBegin, name[i], pathEnd);
+
+			HBITMAP hBitmap = (HBITMAP)LoadImage(
+				NULL,						// HINSTANCE (NULL для файла)
+				path,						// путь к файлу
+				IMAGE_BITMAP,				// тип изображения
+				g_i_BUTTON_IMAGE_SIZE, g_i_BUTTON_IMAGE_SIZE,						// размер (0 = оригинальный)
+				LR_LOADFROMFILE | LR_CREATEDIBSECTION         // флаги
+			);
+
+
+
+
 			sz_operation[0] = g_OPERATION[3 - i];
-			CreateWindowEx(
-				NULL, "BUTTON", sz_operation,
-				WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+			HWND hButton = CreateWindowEx(
+				NULL, "BUTTON", "",
+				WS_CHILD | WS_VISIBLE | BS_BITMAP,
 				g_i_BUTTON_X_POSITION(3),
 				g_i_BUTTON_Y_POSITION(i),
 				g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
@@ -226,13 +291,29 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				GetModuleHandle(NULL),
 				NULL
 			);
+
+			SendMessage(hButton, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
 		}
 
 
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//кнопка BSP ..................................................................
-		CreateWindowEx(
-			NULL, "BUTTON", "<-",
-			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+
+		sprintf(path, "%s%s%s", pathBegin, "Back", pathEnd);
+
+		 hBitmap = (HBITMAP)LoadImage(
+			NULL,						// HINSTANCE (NULL для файла)
+			path,						// путь к файлу
+			IMAGE_BITMAP,				// тип изображения
+			g_i_BUTTON_IMAGE_SIZE, g_i_BUTTON_IMAGE_SIZE,						// размер (0 = оригинальный)
+			LR_LOADFROMFILE | LR_CREATEDIBSECTION         // флаги
+		);
+
+
+
+		 HWND hButtonBack = CreateWindowEx(
+			NULL, "BUTTON", "",
+			WS_CHILD | WS_VISIBLE | BS_BITMAP,
 			g_i_BUTTON_X_POSITION(4),
 			g_i_BUTTON_Y_POSITION(0),
 			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
@@ -242,9 +323,12 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			NULL
 		);
 
+		SendMessage(hButtonBack, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
 
-
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//кнопка CLR ..................................................................
+
+
 		CreateWindowEx(
 			NULL, "BUTTON", "C",
 			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
@@ -257,10 +341,22 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			NULL
 		);
 
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//кнопка =  ..................................................................
-		CreateWindowEx(
+
+		sprintf(path, "%s%s%s", pathBegin, "Equals", pathEnd);
+
+		hBitmap = (HBITMAP)LoadImage(
+			NULL,						// HINSTANCE (NULL для файла)
+			path,						// путь к файлу
+			IMAGE_BITMAP,				// тип изображения
+			g_i_BUTTON_IMAGE_SIZE, g_i_DOUBLE_BUTTON_IMAGE_SIZE,						// размер (0 = оригинальный)
+			LR_LOADFROMFILE | LR_CREATEDIBSECTION         // флаги
+		);
+
+		HWND hButtonEquals = CreateWindowEx(
 			NULL, "BUTTON", "=",
-			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+			WS_CHILD | WS_VISIBLE | BS_BITMAP,
 			g_i_BUTTON_X_POSITION(4),
 			g_i_BUTTON_Y_POSITION(2),
 			g_i_BUTTON_SIZE, g_i_DOUBLE_BUTTON_SIZE,
@@ -270,7 +366,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			NULL
 		);
 
-
+		SendMessage(hButtonEquals, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
 
 
 
@@ -280,10 +376,10 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	///
 	case WM_COMMAND:
 	{
-		static DOUBLE	a = DBL_MIN, b = DBL_MIN;	//Ìèíèìàëüíî-âîçìîæíîå çíà÷åíèå, êîòîðîå ìîæåò õðàíèòü 'double'.
+		static DOUBLE	a = DBL_MIN, b = DBL_MIN;	
 		static INT		operation = 0;
-		static BOOL		input = FALSE;	//Îòñëåæèâàåò ââîä öèôðû;
-		static BOOL		input_operation = FALSE;	//Îòñëåæèâàåò ââîä îïåðàöèè +, -, *, / ;
+		static BOOL		input = FALSE;	
+		static BOOL		input_operation = FALSE;	
 
 		CHAR sz_digit[2] = {};
 		CHAR sz_display[MAX_PATH] = {};
@@ -305,7 +401,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		if (LOWORD(wParam) == IDC_BUTTON_POINT)
 		{
 			input_operation = FALSE;
-			if (strchr(sz_display, '.'))break;	//https://legacy.cplusplus.com/reference/cstring/strchr/
+			if (strchr(sz_display, '.'))break;	
 			strcat(sz_display, ".");
 			SendMessage(hEditDisplay, WM_SETTEXT, 0, (LPARAM)sz_display);
 			input = TRUE;
@@ -313,13 +409,13 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		}
 		if (LOWORD(wParam) == IDC_BUTTON_BSP)
 		{
-			sz_display[strlen(sz_display) - 1] = 0;	//NULL-Terminated Lines
+			sz_display[strlen(sz_display) - 1] = 0;	
 			if (sz_display[0] == 0)sz_display[0] = '0';
 			SendMessage(hEditDisplay, WM_SETTEXT, 0, (LPARAM)sz_display);
 		}
 		if (LOWORD(wParam) == IDC_BUTTON_CLR)
 		{
-			a = DBL_MIN, b = DBL_MIN;	//Ìèíèìàëüíî-âîçìîæíîå çíà÷åíèå, êîòîðîå ìîæåò õðàíèòü 'double'.
+			a = DBL_MIN, b = DBL_MIN;	
 			operation = 0;
 			input = FALSE;
 			input_operation = FALSE;
@@ -329,7 +425,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		{
 			if (input)
 			{
-				(a == DBL_MIN ? a : b) = atof(sz_display);//https://legacy.cplusplus.com/reference/cstdlib/atof/?kw=atof
+				(a == DBL_MIN ? a : b) = atof(sz_display);
 				input = false;
 			}
 			operation = LOWORD(wParam);
@@ -339,7 +435,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		{
 			if (input)
 			{
-				(a == DBL_MIN ? a : b) = atof(sz_display);//https://legacy.cplusplus.com/reference/cstdlib/atof/?kw=atof
+				(a == DBL_MIN ? a : b) = atof(sz_display);
 				input = FALSE;
 			}
 			switch (operation)
@@ -368,8 +464,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 		CHAR sz_key[8] = {};
 		sprintf(sz_key, "%i", wParam);
-		//std::cout << sz_key << std::endl;
-		//MessageBox(hwnd, sz_key, "Info", MB_OK);
+
 		if (GetKeyState(VK_SHIFT) < 0 && wParam == '8')
 		{
 			SendMessage(GetDlgItem(hwnd, IDC_BUTTON_ASTER), BM_SETSTATE, TRUE, 0);
@@ -403,8 +498,6 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 		case VK_BACK:		SendMessage(GetDlgItem(hwnd, IDC_BUTTON_BSP), BM_SETSTATE, TRUE, 0); break;
 		case VK_ESCAPE:		SendMessage(GetDlgItem(hwnd, IDC_BUTTON_CLR), BM_SETSTATE, TRUE, 0); break;
-			//case VK_OEM_PLUS:	
-			//case VK_RETURN:		SendMessage(GetDlgItem(hwnd, IDC_BUTTON_EQUAL), BM_SETSTATE, TRUE, 0); break;
 		}
 	}break;
 
@@ -469,7 +562,6 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		case VK_ESCAPE:
 			SendMessage(hwnd, WM_COMMAND, LOWORD(IDC_BUTTON_CLR), 0);
 			SendMessage(GetDlgItem(hwnd, IDC_BUTTON_CLR), BM_SETSTATE, FALSE, 0); break;
-			//case VK_RETURN:		SendMessage(GetDlgItem(hwnd, IDC_BUTTON_EQUAL), BM_SETSTATE, FALSE, 0); break;
 		}
 
 	} break;
