@@ -150,7 +150,12 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_CREATE:
 	{
+
+#ifdef DEBUG
 		AllocConsole();
+#endif // DEBUG
+
+
 
 		HWND hEdit = CreateWindowEx(
 			NULL, "Edit", "0",
@@ -442,20 +447,33 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				(a == DBL_MIN ? a : b) = atof(sz_display);
 				input = FALSE;
 			}
-			switch (operation)
+
+			//////////////////////////////////////////////////////////////////////////////////////////
+
+			else if (b == DBL_MIN) b = a;
+			
+
+			if (a != DBL_MIN && b != DBL_MIN && operation != 0)
 			{
-			case IDC_BUTTON_PLUS:	a += b;		break;
-			case IDC_BUTTON_MINUS:	a -= b;		break;
-			case IDC_BUTTON_ASTER:	a *= b;		break;
-			case IDC_BUTTON_SLASH:	a /= b;		break;
+
+				switch (operation)
+				{
+				case IDC_BUTTON_PLUS:    a += b;        break;
+				case IDC_BUTTON_MINUS:   a -= b;        break;
+				case IDC_BUTTON_ASTER:   a *= b;        break;
+				case IDC_BUTTON_SLASH:   a /= b;        break;
+				}
+
+				input_operation = FALSE;
+				executed = TRUE;
+
+				if (a != DBL_MIN)
+				{
+					sprintf(sz_display, "%g", a);
+					SendMessage(hEditDisplay, WM_SETTEXT, 0, (LPARAM)sz_display);
+				}
 			}
-			input_operation = FALSE;
-			executed = TRUE;
-			if (a != DBL_MIN)
-			{
-				sprintf(sz_display, "%g", a);
-				SendMessage(hEditDisplay, WM_SETTEXT, 0, (LPARAM)sz_display);
-			}
+
 		}
 
 		SetFocus(hwnd);
