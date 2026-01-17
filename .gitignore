@@ -31,7 +31,7 @@ bld/
 [Ll]og/
 
 # Visual Studio 2015 cache/options directory
-.vs/
+.vs/*
 # Uncomment if you have tasks that create the project's static files in wwwroot
 #wwwroot/
 
@@ -269,4 +269,7 @@ __pycache__/
 *.pyc
 .vs/WinAPI/v17/ipch/AutoPCH/6f6e32da1d850426/MAIN.ipch
 .vs/WinAPI/v17/ipch/AutoPCH/acdf7d357a4ed615/MAIN.ipch
+*.ipch
+.vs/WinAPI/v17/ipch/AutoPCH/acdf7d357a4ed615/MAIN.ipch
+/.vs
 *.ipch
