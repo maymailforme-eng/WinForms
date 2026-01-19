@@ -168,8 +168,8 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			NULL
 		);
 
-		CHAR pathBegin[] = "C:\\Users\\mayma\\OneDrive\\Рабочий стол\\Академия ТОП\\01_Учеба\\07_WPF, WinForms\\Домашняя работа\\Кнопки\\";
-		CHAR pathButtonPrefics[] = "Button_";
+		CHAR pathBegin[] = "ButtonsBMP\\SquareBlue\\button_";
+		//CHAR pathButtonPrefics[] = "Button_";
 		CHAR pathEnd[] = ".bmp";
 		CHAR path[256] = {};
 
@@ -186,7 +186,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				
 				INT NUM = i + j + 1;
 				CHAR numChar = char(NUM + 48);
-				sprintf(path, "%s%s%c%s", pathBegin, pathButtonPrefics, numChar, pathEnd);
+				sprintf(path, "%s%c%s", pathBegin, numChar, pathEnd);
 
 				HBITMAP hBitmap = (HBITMAP)LoadImage(
 					NULL,						// HINSTANCE (NULL для файла)
@@ -224,7 +224,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//кнопка нуля............................................................................................
 		//memset(path, 0, sizeof(path)); //сброс строки
-		sprintf(path, "%s%s%s", pathBegin, "Button_0", pathEnd);
+		sprintf(path, "%s%s%s", pathBegin, "0", pathEnd);
 
 		HBITMAP hBitmap = (HBITMAP)LoadImage(
 			NULL,						// HINSTANCE (NULL для файла)
@@ -251,9 +251,21 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//кнопка точки........................................................................
-		CreateWindowEx(
-			NULL, "BUTTON", ".",
-			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+
+		sprintf(path, "%s%s%s", pathBegin, "point", pathEnd);
+
+		hBitmap = (HBITMAP)LoadImage(
+			NULL,						// HINSTANCE (NULL для файла)
+			path,						// путь к файлу
+			IMAGE_BITMAP,				// тип изображения
+			g_i_BUTTON_IMAGE_SIZE, g_i_BUTTON_IMAGE_SIZE,						// размер (0 = оригинальный)
+			LR_LOADFROMFILE | LR_CREATEDIBSECTION         // флаги
+		);
+
+
+		HWND hButton_point = CreateWindowEx(
+			NULL, "BUTTON", "",
+			WS_CHILD | WS_VISIBLE | BS_BITMAP,
 			g_i_BUTTON_X_POSITION(2),
 			g_i_BUTTON_Y_POSITION(3),
 			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
@@ -262,12 +274,12 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			GetModuleHandle(NULL),
 			NULL
 		);
-
+		SendMessage(hButton_point, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//кнопка операций ..................................................................
 		CHAR sz_operation[2] = {};
-		CONST CHAR* name[] = {"Div", "Multy", "Minus", "Plus", };
+		CONST CHAR* name[] = {"slash", "aster", "minus", "plus"};
 
 		for (int i = 0; i < 4; i++)
 		{
@@ -304,7 +316,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//кнопка BSP ..................................................................
 
-		sprintf(path, "%s%s%s", pathBegin, "Back", pathEnd);
+		sprintf(path, "%s%s%s", pathBegin, "bsp", pathEnd);
 
 		 hBitmap = (HBITMAP)LoadImage(
 			NULL,						// HINSTANCE (NULL для файла)
@@ -333,10 +345,20 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//кнопка CLR ..................................................................
 
+		sprintf(path, "%s%s%s", pathBegin, "clr", pathEnd);
 
-		CreateWindowEx(
-			NULL, "BUTTON", "C",
-			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+		hBitmap = (HBITMAP)LoadImage(
+			NULL,						// HINSTANCE (NULL для файла)
+			path,						// путь к файлу
+			IMAGE_BITMAP,				// тип изображения
+			g_i_BUTTON_IMAGE_SIZE, g_i_BUTTON_IMAGE_SIZE,						// размер (0 = оригинальный)
+			LR_LOADFROMFILE | LR_CREATEDIBSECTION
+		);
+
+
+		HWND hButtonCLR = CreateWindowEx(
+			NULL, "BUTTON", "",
+			WS_CHILD | WS_VISIBLE | BS_BITMAP,
 			g_i_BUTTON_X_POSITION(4),
 			g_i_BUTTON_Y_POSITION(1),
 			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
@@ -346,21 +368,24 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			NULL
 		);
 
+		SendMessage(hButtonCLR, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//кнопка =  ..................................................................
 
-		sprintf(path, "%s%s%s", pathBegin, "Equals", pathEnd);
+		sprintf(path, "%s%s%s", pathBegin, "equal", pathEnd);
 
 		hBitmap = (HBITMAP)LoadImage(
 			NULL,						// HINSTANCE (NULL для файла)
 			path,						// путь к файлу
 			IMAGE_BITMAP,				// тип изображения
 			g_i_BUTTON_IMAGE_SIZE, g_i_DOUBLE_BUTTON_IMAGE_SIZE,						// размер (0 = оригинальный)
-			LR_LOADFROMFILE | LR_CREATEDIBSECTION         // флаги
+			LR_LOADFROMFILE | LR_CREATEDIBSECTION 
 		);
 
 		HWND hButtonEquals = CreateWindowEx(
-			NULL, "BUTTON", "=",
+			NULL, "BUTTON", "",
 			WS_CHILD | WS_VISIBLE | BS_BITMAP,
 			g_i_BUTTON_X_POSITION(4),
 			g_i_BUTTON_Y_POSITION(2),
