@@ -32,10 +32,16 @@
 
 CONST CHAR g_OPERATION[] = "+-*/";
 
+//глобальные переменные для контекстного меню
+CONST INT AMOUNT_BOTTON = 18;
+HBITMAP HBITMAP_BlueTheme[AMOUNT_BOTTON] = {};
+HBITMAP HBITMAP_MetalTheme[AMOUNT_BOTTON] = {};
+HWND HWND_buttonArr[AMOUNT_BOTTON] = {};
+HMENU hContextMenu = NULL;
 
 
 
-
+void ApplyTheme(int themeId);
 
 CONST CHAR g_sz_WINDOW_CLASS[] = "Calc PV_522";
 
@@ -143,6 +149,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 
 
 
+
 LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 
@@ -155,7 +162,20 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		AllocConsole();
 #endif // DEBUG
 
+		////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//КОНТЕКСТНОЕ МЕНЮ
+		//
+		hContextMenu = CreatePopupMenu();
+		AppendMenu(hContextMenu, MF_STRING, ID_THEME_BLUE, "Синяя тема");
+		AppendMenu(hContextMenu, MF_STRING, ID_THEME_METALL, "Серая тема");
 
+
+
+
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//Edit
+		//
 
 		HWND hEdit = CreateWindowEx(
 			NULL, "Edit", "0",
@@ -168,10 +188,14 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			NULL
 		);
 
-		CHAR pathBegin[] = "ButtonsBMP\\SquareBlue\\button_";
-		//CHAR pathButtonPrefics[] = "Button_";
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//КНОПКИ ЦИФР
+		//
+		CHAR pathBeginBlue[] = "ButtonsBMP\\SquareBlue\\button_";
+		CHAR pathBeginMetal[] = "ButtonsBMP\\MetalMistral\\button_";
 		CHAR pathEnd[] = ".bmp";
-		CHAR path[256] = {};
+		CHAR pathBlue[256] = {};
+		CHAR pathMetal [256] = {};
 
 		CHAR sz_digit[2] = {};
 
@@ -179,25 +203,36 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		{
 			for (int j = 0; j < 3; j++)
 			{
-				memset(path, 0, sizeof(path)); //сброс строки
+				memset(pathBlue, 0, sizeof(pathBlue)); //сброс строки
 
 				sz_digit[0] = i + j + '1';
 
-				
+
 				INT NUM = i + j + 1;
 				CHAR numChar = char(NUM + 48);
-				sprintf(path, "%s%c%s", pathBegin, numChar, pathEnd);
+				sprintf(pathBlue, "%s%c%s", pathBeginBlue, numChar, pathEnd);
+				sprintf(pathMetal, "%s%c%s", pathBeginMetal, numChar, pathEnd);
 
-				HBITMAP hBitmap = (HBITMAP)LoadImage(
+				
+				HBITMAP_BlueTheme[i+j + 1] = (HBITMAP)LoadImage(
 					NULL,						// HINSTANCE (NULL для файла)
-					path,						// путь к файлу
+					pathBlue,						// путь к файлу
+					IMAGE_BITMAP,				// тип изображения
+					g_i_BUTTON_IMAGE_SIZE, g_i_BUTTON_IMAGE_SIZE,						// размер (0 = оригинальный)
+					LR_LOADFROMFILE | LR_CREATEDIBSECTION         // флаги
+				);
+
+				HBITMAP_MetalTheme[i + j + 1] = (HBITMAP)LoadImage(
+					NULL,						// HINSTANCE (NULL для файла)
+					pathMetal,						// путь к файлу
 					IMAGE_BITMAP,				// тип изображения
 					g_i_BUTTON_IMAGE_SIZE, g_i_BUTTON_IMAGE_SIZE,						// размер (0 = оригинальный)
 					LR_LOADFROMFILE | LR_CREATEDIBSECTION         // флаги
 				);
 
 
-				HWND hButton = CreateWindowEx(
+
+				HWND_buttonArr[i + j + 1] = CreateWindowEx(
 					NULL, "BUTTON", "",
 					WS_CHILD | WS_VISIBLE | BS_BITMAP,
 					g_i_BUTTON_X_POSITION(j),
@@ -209,7 +244,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 					NULL);
 
 
-				SendMessage(hButton, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
+				SendMessage(HWND_buttonArr[i + j + 1], BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)HBITMAP_BlueTheme[i + j + 1]);
 
 
 
@@ -224,18 +259,27 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//кнопка нуля............................................................................................
 		//memset(path, 0, sizeof(path)); //сброс строки
-		sprintf(path, "%s%s%s", pathBegin, "0", pathEnd);
+		sprintf(pathBlue, "%s%s%s", pathBeginBlue, "0", pathEnd);
+		sprintf(pathMetal, "%s%s%s", pathBeginMetal, "0", pathEnd);
 
-		HBITMAP hBitmap = (HBITMAP)LoadImage(
+		HBITMAP_BlueTheme[0] = (HBITMAP)LoadImage(
 			NULL,						// HINSTANCE (NULL для файла)
-			path,						// путь к файлу
+			pathBlue,						// путь к файлу
+			IMAGE_BITMAP,				// тип изображения
+			g_i_DOUBLE_BUTTON_IMAGE_SIZE, g_i_BUTTON_IMAGE_SIZE,						// размер (0 = оригинальный)
+			LR_LOADFROMFILE | LR_CREATEDIBSECTION         // флаги
+		);
+
+		HBITMAP_MetalTheme[0] = (HBITMAP)LoadImage(
+			NULL,						// HINSTANCE (NULL для файла)
+			pathMetal,						// путь к файлу
 			IMAGE_BITMAP,				// тип изображения
 			g_i_DOUBLE_BUTTON_IMAGE_SIZE, g_i_BUTTON_IMAGE_SIZE,						// размер (0 = оригинальный)
 			LR_LOADFROMFILE | LR_CREATEDIBSECTION         // флаги
 		);
 
 
-		HWND hButton_0 = CreateWindowEx(
+		HWND_buttonArr[0] = CreateWindowEx(
 			NULL, "BUTTON", "",
 			WS_CHILD | WS_VISIBLE | BS_BITMAP,
 			g_i_BUTTON_X_POSITION(0),
@@ -247,23 +291,32 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			NULL
 		);
 
-		SendMessage(hButton_0, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
+		SendMessage(HWND_buttonArr[0], BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)HBITMAP_BlueTheme[0]);
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//кнопка точки........................................................................
 
-		sprintf(path, "%s%s%s", pathBegin, "point", pathEnd);
+		sprintf(pathBlue, "%s%s%s", pathBeginBlue, "point", pathEnd);
+		sprintf(pathMetal, "%s%s%s", pathBeginMetal, "point", pathEnd);
 
-		hBitmap = (HBITMAP)LoadImage(
+		HBITMAP_BlueTheme[10] = (HBITMAP)LoadImage(
 			NULL,						// HINSTANCE (NULL для файла)
-			path,						// путь к файлу
+			pathBlue,						// путь к файлу
+			IMAGE_BITMAP,				// тип изображения
+			g_i_BUTTON_IMAGE_SIZE, g_i_BUTTON_IMAGE_SIZE,						// размер (0 = оригинальный)
+			LR_LOADFROMFILE | LR_CREATEDIBSECTION         // флаги
+		);
+
+		HBITMAP_MetalTheme[10] = (HBITMAP)LoadImage(
+			NULL,						// HINSTANCE (NULL для файла)
+			pathMetal,						// путь к файлу
 			IMAGE_BITMAP,				// тип изображения
 			g_i_BUTTON_IMAGE_SIZE, g_i_BUTTON_IMAGE_SIZE,						// размер (0 = оригинальный)
 			LR_LOADFROMFILE | LR_CREATEDIBSECTION         // флаги
 		);
 
 
-		HWND hButton_point = CreateWindowEx(
+		HWND_buttonArr[10] = CreateWindowEx(
 			NULL, "BUTTON", "",
 			WS_CHILD | WS_VISIBLE | BS_BITMAP,
 			g_i_BUTTON_X_POSITION(2),
@@ -274,20 +327,29 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			GetModuleHandle(NULL),
 			NULL
 		);
-		SendMessage(hButton_point, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
+		SendMessage(HWND_buttonArr[10], BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)HBITMAP_BlueTheme[10]);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//кнопка операций ..................................................................
 		CHAR sz_operation[2] = {};
-		CONST CHAR* name[] = {"slash", "aster", "minus", "plus"};
+		CONST CHAR* name[] = { "slash", "aster", "minus", "plus" };
 
 		for (int i = 0; i < 4; i++)
 		{
-			sprintf(path, "%s%s%s", pathBegin, name[i], pathEnd);
+			sprintf(pathBlue, "%s%s%s", pathBeginBlue, name[i], pathEnd);
+			sprintf(pathMetal, "%s%s%s", pathBeginMetal, name[i], pathEnd);
 
-			HBITMAP hBitmap = (HBITMAP)LoadImage(
+			HBITMAP_BlueTheme[11 + i] = (HBITMAP)LoadImage(
 				NULL,						// HINSTANCE (NULL для файла)
-				path,						// путь к файлу
+				pathBlue,						// путь к файлу
+				IMAGE_BITMAP,				// тип изображения
+				g_i_BUTTON_IMAGE_SIZE, g_i_BUTTON_IMAGE_SIZE,						// размер (0 = оригинальный)
+				LR_LOADFROMFILE | LR_CREATEDIBSECTION         // флаги
+			);
+
+			HBITMAP_MetalTheme[11 + i] = (HBITMAP)LoadImage(
+				NULL,						// HINSTANCE (NULL для файла)
+				pathMetal,						// путь к файлу
 				IMAGE_BITMAP,				// тип изображения
 				g_i_BUTTON_IMAGE_SIZE, g_i_BUTTON_IMAGE_SIZE,						// размер (0 = оригинальный)
 				LR_LOADFROMFILE | LR_CREATEDIBSECTION         // флаги
@@ -297,7 +359,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 
 			sz_operation[0] = g_OPERATION[3 - i];
-			HWND hButton = CreateWindowEx(
+			HWND_buttonArr[11+i] = CreateWindowEx(
 				NULL, "BUTTON", "",
 				WS_CHILD | WS_VISIBLE | BS_BITMAP,
 				g_i_BUTTON_X_POSITION(3),
@@ -309,18 +371,27 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				NULL
 			);
 
-			SendMessage(hButton, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
+			SendMessage(HWND_buttonArr[11 + i], BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)HBITMAP_BlueTheme[11 + i]);
 		}
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//кнопка BSP ..................................................................
 
-		sprintf(path, "%s%s%s", pathBegin, "bsp", pathEnd);
+		sprintf(pathBlue, "%s%s%s", pathBeginBlue, "bsp", pathEnd);
+		sprintf(pathMetal, "%s%s%s", pathBeginMetal, "bsp", pathEnd);
 
-		 hBitmap = (HBITMAP)LoadImage(
+		HBITMAP_BlueTheme[15] = (HBITMAP)LoadImage(
 			NULL,						// HINSTANCE (NULL для файла)
-			path,						// путь к файлу
+			pathBlue,						// путь к файлу
+			IMAGE_BITMAP,				// тип изображения
+			g_i_BUTTON_IMAGE_SIZE, g_i_BUTTON_IMAGE_SIZE,						// размер (0 = оригинальный)
+			LR_LOADFROMFILE | LR_CREATEDIBSECTION         // флаги
+		);
+
+		HBITMAP_MetalTheme[15] = (HBITMAP)LoadImage(
+			NULL,						// HINSTANCE (NULL для файла)
+			pathMetal,						// путь к файлу
 			IMAGE_BITMAP,				// тип изображения
 			g_i_BUTTON_IMAGE_SIZE, g_i_BUTTON_IMAGE_SIZE,						// размер (0 = оригинальный)
 			LR_LOADFROMFILE | LR_CREATEDIBSECTION         // флаги
@@ -328,7 +399,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 
 
-		 HWND hButtonBack = CreateWindowEx(
+		HWND_buttonArr[15] = CreateWindowEx(
 			NULL, "BUTTON", "",
 			WS_CHILD | WS_VISIBLE | BS_BITMAP,
 			g_i_BUTTON_X_POSITION(4),
@@ -340,23 +411,32 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			NULL
 		);
 
-		SendMessage(hButtonBack, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
+		SendMessage(HWND_buttonArr[15], BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)HBITMAP_BlueTheme[15]);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//кнопка CLR ..................................................................
 
-		sprintf(path, "%s%s%s", pathBegin, "clr", pathEnd);
+		sprintf(pathBlue, "%s%s%s", pathBeginBlue, "clr", pathEnd);
+		sprintf(pathMetal, "%s%s%s", pathBeginMetal, "clr", pathEnd);
 
-		hBitmap = (HBITMAP)LoadImage(
+		HBITMAP_BlueTheme[16] = (HBITMAP)LoadImage(
 			NULL,						// HINSTANCE (NULL для файла)
-			path,						// путь к файлу
+			pathBlue,						// путь к файлу
+			IMAGE_BITMAP,				// тип изображения
+			g_i_BUTTON_IMAGE_SIZE, g_i_BUTTON_IMAGE_SIZE,						// размер (0 = оригинальный)
+			LR_LOADFROMFILE | LR_CREATEDIBSECTION
+		);
+
+		HBITMAP_MetalTheme[16] = (HBITMAP)LoadImage(
+			NULL,						// HINSTANCE (NULL для файла)
+			pathMetal,						// путь к файлу
 			IMAGE_BITMAP,				// тип изображения
 			g_i_BUTTON_IMAGE_SIZE, g_i_BUTTON_IMAGE_SIZE,						// размер (0 = оригинальный)
 			LR_LOADFROMFILE | LR_CREATEDIBSECTION
 		);
 
 
-		HWND hButtonCLR = CreateWindowEx(
+		HWND_buttonArr[16] = CreateWindowEx(
 			NULL, "BUTTON", "",
 			WS_CHILD | WS_VISIBLE | BS_BITMAP,
 			g_i_BUTTON_X_POSITION(4),
@@ -368,23 +448,32 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			NULL
 		);
 
-		SendMessage(hButtonCLR, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
+		SendMessage(HWND_buttonArr[16], BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)HBITMAP_BlueTheme[16]);
 
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//кнопка =  ..................................................................
 
-		sprintf(path, "%s%s%s", pathBegin, "equal", pathEnd);
+		sprintf(pathBlue, "%s%s%s", pathBeginBlue, "equal", pathEnd);
+		sprintf(pathMetal, "%s%s%s", pathBeginMetal, "equal", pathEnd);
 
-		hBitmap = (HBITMAP)LoadImage(
+		HBITMAP_BlueTheme[17] = (HBITMAP)LoadImage(
 			NULL,						// HINSTANCE (NULL для файла)
-			path,						// путь к файлу
+			pathBlue,						// путь к файлу
 			IMAGE_BITMAP,				// тип изображения
 			g_i_BUTTON_IMAGE_SIZE, g_i_DOUBLE_BUTTON_IMAGE_SIZE,						// размер (0 = оригинальный)
-			LR_LOADFROMFILE | LR_CREATEDIBSECTION 
+			LR_LOADFROMFILE | LR_CREATEDIBSECTION
 		);
 
-		HWND hButtonEquals = CreateWindowEx(
+		HBITMAP_MetalTheme[17] = (HBITMAP)LoadImage(
+			NULL,						// HINSTANCE (NULL для файла)
+			pathMetal,						// путь к файлу
+			IMAGE_BITMAP,				// тип изображения
+			g_i_BUTTON_IMAGE_SIZE, g_i_DOUBLE_BUTTON_IMAGE_SIZE,						// размер (0 = оригинальный)
+			LR_LOADFROMFILE | LR_CREATEDIBSECTION
+		);
+
+		HWND_buttonArr[17] = CreateWindowEx(
 			NULL, "BUTTON", "",
 			WS_CHILD | WS_VISIBLE | BS_BITMAP,
 			g_i_BUTTON_X_POSITION(4),
@@ -396,26 +485,66 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			NULL
 		);
 
-		SendMessage(hButtonEquals, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
+		SendMessage(HWND_buttonArr[17], BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)HBITMAP_BlueTheme[17]);
 
 
 
 	}break;
+
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	///ОБРАБОТКА КОНТЕКСТНОГО МЕНЮ WM_CONTEXTMENU
+	///
+
+
+	case WM_CONTEXTMENU:
+	{
+		// Проверяем, что клик был в клиентской области нашего окна
+		if ((HWND)wParam == hwnd)
+		{
+			POINT pt = { LOWORD(lParam), HIWORD(lParam) };
+			ClientToScreen(hwnd, &pt);
+			// Показываем контекстное меню
+		/*	TrackPopupMenu(hContextMenu,
+				TPM_LEFTALIGN | TPM_TOPALIGN | TPM_RETURNCMD,
+				pt.x, pt.y, 0, hwnd, NULL);*/
+
+
+
+			TrackPopupMenu(hContextMenu, TPM_LEFTALIGN | TPM_TOPALIGN,
+				pt.x, pt.y, 0, hwnd, NULL);
+
+
+		}
+
+	}break;
+
+
+
+
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	///ОБРАБОТКА СООБЩЕНИЙ WM_COMMAND
 	///
 	case WM_COMMAND:
 	{
-		static DOUBLE	a = DBL_MIN, b = DBL_MIN;	
+		static DOUBLE	a = DBL_MIN, b = DBL_MIN;
 		static INT		operation = 0;
-		static BOOL		input = FALSE;	
-		static BOOL		input_operation = FALSE;	
+		static BOOL		input = FALSE;
+		static BOOL		input_operation = FALSE;
 		static BOOL		executed = FALSE;
 
 		CHAR sz_digit[2] = {};
 		CHAR sz_display[MAX_PATH] = {};
 		HWND hEditDisplay = GetDlgItem(hwnd, IDC_DISPLAY);
 		SendMessage(hEditDisplay, WM_GETTEXT, MAX_PATH, (LPARAM)sz_display);
+
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//Обновление тем
+		//
+		if (LOWORD(wParam) == ID_THEME_BLUE) { ApplyTheme(ID_THEME_BLUE); return 0;}
+		if (LOWORD(wParam) == ID_THEME_METALL) { ApplyTheme(ID_THEME_METALL); return 0; }
+
+
 		if (LOWORD(wParam) >= IDC_BUTTON_0 && LOWORD(wParam) <= IDC_BUTTON_9) //ввод цифр
 		{
 			input_operation = FALSE;
@@ -433,7 +562,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		if (LOWORD(wParam) == IDC_BUTTON_POINT)
 		{
 			input_operation = FALSE;
-			if (strchr(sz_display, '.'))break;	
+			if (strchr(sz_display, '.'))break;
 			strcat(sz_display, ".");
 			SendMessage(hEditDisplay, WM_SETTEXT, 0, (LPARAM)sz_display);
 			input = TRUE;
@@ -441,13 +570,13 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		}
 		if (LOWORD(wParam) == IDC_BUTTON_BSP)
 		{
-			sz_display[strlen(sz_display) - 1] = 0;	
+			sz_display[strlen(sz_display) - 1] = 0;
 			if (sz_display[0] == 0)sz_display[0] = '0';
 			SendMessage(hEditDisplay, WM_SETTEXT, 0, (LPARAM)sz_display);
 		}
 		if (LOWORD(wParam) == IDC_BUTTON_CLR)
 		{
-			a = DBL_MIN, b = DBL_MIN;	
+			a = DBL_MIN, b = DBL_MIN;
 			operation = 0;
 			input = FALSE;
 			input_operation = FALSE;
@@ -461,7 +590,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				input = false;
 			}
 
-			if(!input_operation && !executed)SendMessage(hwnd, WM_COMMAND, LOWORD(IDC_BUTTON_EQUAL), 0);
+			if (!input_operation && !executed)SendMessage(hwnd, WM_COMMAND, LOWORD(IDC_BUTTON_EQUAL), 0);
 			operation = LOWORD(wParam);
 			input_operation = TRUE;
 		}
@@ -476,7 +605,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			//////////////////////////////////////////////////////////////////////////////////////////
 
 			else if (b == DBL_MIN) b = a;
-			
+
 
 			if (a != DBL_MIN && b != DBL_MIN && operation != 0)
 			{
@@ -623,7 +752,28 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	case WM_CLOSE: { DestroyWindow(hwnd); } break;
 	default: return DefWindowProc(hwnd, uMsg, wParam, lParam);
 	}
-
+	
 	return FALSE;
 
+}
+
+
+
+void ApplyTheme(int themeId)
+{
+
+	if (themeId == ID_THEME_BLUE)
+	{
+		for (int i = 0; i < AMOUNT_BOTTON; ++i)
+		{
+			SendMessage(HWND_buttonArr[i], BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)HBITMAP_BlueTheme[i]);
+		}
+	}
+	else if (themeId == ID_THEME_METALL)
+	{
+		for (int i = 0; i < AMOUNT_BOTTON; ++i)
+		{
+			SendMessage(HWND_buttonArr[i], BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)HBITMAP_MetalTheme[i]);
+		}
+	}
 }

@@ -28,6 +28,9 @@
 #define IDC_BUTTON_CLR	1016
 #define IDC_BUTTON_EQUAL	1017
 
+#define ID_THEME_BLUE 1020
+#define ID_THEME_METALL 1021
+
 
 
 
