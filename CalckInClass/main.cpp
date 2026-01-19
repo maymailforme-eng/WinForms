@@ -168,8 +168,8 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			NULL
 		);
 
-		CHAR pathBegin[] = "C:\\Users\\mayma\\OneDrive\\Рабочий стол\\Академия ТОП\\01_Учеба\\07_WPF, WinForms\\Домашняя работа\\Кнопки\\";
-		CHAR pathButtonPrefics[] = "Button_";
+		CHAR pathBegin[] = "ButtonsBMP\\SquareBlue\\button_";
+		//CHAR pathButtonPrefics[] = "button_";
 		CHAR pathEnd[] = ".bmp";
 		CHAR path[256] = {};
 
@@ -179,14 +179,13 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		{
 			for (int j = 0; j < 3; j++)
 			{
-				memset(path, 0, sizeof(path)); //сброс строки
 
 				sz_digit[0] = i + j + '1';
 
 				
 				INT NUM = i + j + 1;
 				CHAR numChar = char(NUM + 48);
-				sprintf(path, "%s%s%c%s", pathBegin, pathButtonPrefics, numChar, pathEnd);
+				sprintf(path, "%s%c%s", pathBegin, numChar, pathEnd);
 
 				HBITMAP hBitmap = (HBITMAP)LoadImage(
 					NULL,						// HINSTANCE (NULL для файла)
@@ -223,10 +222,9 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//кнопка нуля............................................................................................
-		//memset(path, 0, sizeof(path)); //сброс строки
-		sprintf(path, "%s%s%s", pathBegin, "Button_0", pathEnd);
+		sprintf(path, "%s%c%s", pathBegin, '0', pathEnd);
 
-		HBITMAP hBitmap = (HBITMAP)LoadImage(
+		HBITMAP hBitmap_zero = (HBITMAP)LoadImage(
 			NULL,						// HINSTANCE (NULL для файла)
 			path,						// путь к файлу
 			IMAGE_BITMAP,				// тип изображения
@@ -247,12 +245,24 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			NULL
 		);
 
-		SendMessage(hButton_0, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
+		SendMessage(hButton_0, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap_zero);
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//кнопка точки........................................................................
-		CreateWindowEx(
-			NULL, "BUTTON", ".",
+
+		sprintf(path, "%s%c%s", pathBegin, '.', pathEnd);
+
+		HBITMAP hBitmap_point = (HBITMAP)LoadImage(
+			NULL,						// HINSTANCE (NULL для файла)
+			path,						// путь к файлу
+			IMAGE_BITMAP,				// тип изображения
+			g_i_DOUBLE_BUTTON_IMAGE_SIZE, g_i_BUTTON_IMAGE_SIZE,						// размер (0 = оригинальный)
+			LR_LOADFROMFILE | LR_CREATEDIBSECTION         // флаги
+		);
+
+
+		HWND hButton_point = CreateWindowEx(
+			NULL, "BUTTON", "",
 			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
 			g_i_BUTTON_X_POSITION(2),
 			g_i_BUTTON_Y_POSITION(3),
@@ -263,6 +273,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			NULL
 		);
 
+		SendMessage(hButton_point, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap_point);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//кнопка операций ..................................................................
@@ -306,7 +317,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 		sprintf(path, "%s%s%s", pathBegin, "Back", pathEnd);
 
-		 hBitmap = (HBITMAP)LoadImage(
+		HBITMAP hBitmap_back = (HBITMAP)LoadImage(
 			NULL,						// HINSTANCE (NULL для файла)
 			path,						// путь к файлу
 			IMAGE_BITMAP,				// тип изображения
@@ -328,7 +339,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			NULL
 		);
 
-		SendMessage(hButtonBack, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
+		SendMessage(hButtonBack, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap_back);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//кнопка CLR ..................................................................
@@ -351,7 +362,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 		sprintf(path, "%s%s%s", pathBegin, "Equals", pathEnd);
 
-		hBitmap = (HBITMAP)LoadImage(
+		HBITMAP hBitmap = (HBITMAP)LoadImage(
 			NULL,						// HINSTANCE (NULL для файла)
 			path,						// путь к файлу
 			IMAGE_BITMAP,				// тип изображения
