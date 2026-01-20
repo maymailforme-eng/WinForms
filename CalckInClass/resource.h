@@ -3,8 +3,16 @@
 // Used by Resource.rc
 
 
+
+#define IDR_EXIT			200
+#define IDR_METAL_MISTRAL	201
+#define IDR_SQUARE_BLUE		202
+
+
+
+
 //именнованные константы препроцессора
-#define IDC_DISPLAY		999
+#define IDC_DISPLAY			999
 
 #define IDC_BUTTON_0		1000
 #define IDC_BUTTON_1		1001
@@ -17,15 +25,15 @@
 #define IDC_BUTTON_8		1008
 #define IDC_BUTTON_9		1009
 
-#define IDC_BUTTON_POINT 1010
+#define IDC_BUTTON_POINT	1010
 
-#define IDC_BUTTON_PLUS  1011
-#define IDC_BUTTON_MINUS 1012
-#define IDC_BUTTON_ASTER 1013
-#define IDC_BUTTON_SLASH 1014
+#define IDC_BUTTON_PLUS		1011
+#define IDC_BUTTON_MINUS	1012
+#define IDC_BUTTON_ASTER	1013
+#define IDC_BUTTON_SLASH	1014
 
-#define IDC_BUTTON_BSP	1015
-#define IDC_BUTTON_CLR	1016
+#define IDC_BUTTON_BSP		1015
+#define IDC_BUTTON_CLR		1016
 #define IDC_BUTTON_EQUAL	1017
 
 
