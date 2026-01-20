@@ -35,7 +35,7 @@ CONST CHAR g_OPERATION[] = "+-*/";
 
 
 
-
+VOID SetSkin(HWND hwnd, CONST CHAR sz_skin[]);
 
 CONST CHAR g_sz_WINDOW_CLASS[] = "Calc PV_522";
 
@@ -199,7 +199,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 				HWND hButton = CreateWindowEx(
 					NULL, "BUTTON", "",
-					WS_CHILD | WS_VISIBLE | BS_BITMAP,
+					WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | BS_BITMAP,
 					g_i_BUTTON_X_POSITION(j),
 					g_i_BUTTON_Y_POSITION(2 - i / 3),
 					g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
@@ -237,7 +237,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 		HWND hButton_0 = CreateWindowEx(
 			NULL, "BUTTON", "",
-			WS_CHILD | WS_VISIBLE | BS_BITMAP,
+			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | BS_BITMAP,
 			g_i_BUTTON_X_POSITION(0),
 			g_i_BUTTON_Y_POSITION(3),
 			g_i_DOUBLE_BUTTON_SIZE, g_i_BUTTON_SIZE,
@@ -253,7 +253,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		//кнопка точки........................................................................
 		CreateWindowEx(
 			NULL, "BUTTON", ".",
-			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | BS_BITMAP,
 			g_i_BUTTON_X_POSITION(2),
 			g_i_BUTTON_Y_POSITION(3),
 			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
@@ -287,7 +287,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			sz_operation[0] = g_OPERATION[3 - i];
 			HWND hButton = CreateWindowEx(
 				NULL, "BUTTON", "",
-				WS_CHILD | WS_VISIBLE | BS_BITMAP,
+				WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | BS_BITMAP,
 				g_i_BUTTON_X_POSITION(3),
 				g_i_BUTTON_Y_POSITION(i),
 				g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
@@ -318,7 +318,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 		 HWND hButtonBack = CreateWindowEx(
 			NULL, "BUTTON", "",
-			WS_CHILD | WS_VISIBLE | BS_BITMAP,
+			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | BS_BITMAP,
 			g_i_BUTTON_X_POSITION(4),
 			g_i_BUTTON_Y_POSITION(0),
 			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
@@ -336,7 +336,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 		CreateWindowEx(
 			NULL, "BUTTON", "C",
-			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | BS_BITMAP,
 			g_i_BUTTON_X_POSITION(4),
 			g_i_BUTTON_Y_POSITION(1),
 			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
@@ -361,7 +361,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 		HWND hButtonEquals = CreateWindowEx(
 			NULL, "BUTTON", "=",
-			WS_CHILD | WS_VISIBLE | BS_BITMAP,
+			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | BS_BITMAP,
 			g_i_BUTTON_X_POSITION(4),
 			g_i_BUTTON_Y_POSITION(2),
 			g_i_BUTTON_SIZE, g_i_DOUBLE_BUTTON_SIZE,
@@ -374,8 +374,13 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		SendMessage(hButtonEquals, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
 
 
+		SetSkin(hwnd, "SquareBlue");
 
 	}break;
+
+
+
+
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	///ОБРАБОТКА СООБЩЕНИЙ WM_COMMAND
 	///
@@ -600,5 +605,53 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	}
 
 	return FALSE;
+
+}
+
+
+VOID SetSkin(HWND hwnd, CONST CHAR sz_skin[])
+{
+	CONST CHAR* sz_NAMES[] =
+	{
+		"button_0",
+		"button_1",
+		"button_2",
+		"button_3",
+		"button_4",
+		"button_5",
+		"button_6",
+		"button_7",
+		"button_8",
+		"button_9",
+		"button_point",
+		"button_plus",
+		"button_minus",
+		"button_aster",
+		"button_slash",
+		"button_bsp",
+		"button_clr",
+		"button_equal"
+	};
+
+
+	for (int i = 0; i < 18; ++i)
+	{
+		HWND hButton = GetDlgItem(hwnd, IDC_BUTTON_0 + i);
+		CHAR sz_filename[MAX_PATH] = {};
+		sprintf(sz_filename, "ButtonsBMP\\%s\\%s.bmp", sz_skin, sz_NAMES[i]);
+		HBITMAP bmpGutton = (HBITMAP)LoadImage
+		(
+			GetModuleHandle(NULL),
+			sz_filename,
+			IMAGE_BITMAP,
+			i > 0 ? g_i_BUTTON_SIZE : g_i_DOUBLE_BUTTON_SIZE,
+			i < 17 ? g_i_BUTTON_SIZE : g_i_DOUBLE_BUTTON_SIZE,
+			LR_LOADFROMFILE
+
+		);
+
+		SendMessage(hButton, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)bmpGutton);
+	}
+
 
 }
