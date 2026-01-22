@@ -19,7 +19,9 @@
 #define g_i_START_Y					10
 
 #define g_i_DISPLAY_WIDTH			(g_i_BUTTON_SIZE*5 + g_i_INTERVAL * 4)
-#define g_i_DISPLAY_HEIGTH			22
+#define g_i_DISPLAY_HEIGTH			g_i_BUTTON_SIZE
+#define g_i_FONT_HEIGTH				(g_i_BUTTON_SIZE - 2)
+#define g_i_FONT_WIDTH				g_i_FONT_HEIGTH / 2.5				
 
 #define g_i_BUTTON_START_X			g_i_START_X
 #define g_i_BUTTON_START_Y			(g_i_START_Y + g_i_DISPLAY_HEIGTH + g_i_INTERVAL)
@@ -158,6 +160,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	static Skin skin = Skin::SquareBlue;
+	static HFONT hFont = NULL;
 
 	switch (uMsg)
 	{
@@ -180,6 +183,27 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			GetModuleHandle(NULL),
 			NULL
 		);
+
+		AddFontResourceEx("Fonts\\digital-7 (mono).ttf", FR_PRIVATE, 0);
+
+		hFont = CreateFont
+		(
+			g_i_FONT_HEIGTH, g_i_FONT_WIDTH,
+			0, 0, 500,
+			FALSE, FALSE, FALSE,
+			DEFAULT_CHARSET,
+			OUT_DEFAULT_PRECIS,
+			CLIP_DEFAULT_PRECIS,
+			ANTIALIASED_QUALITY,
+			DEFAULT_PITCH,
+			/*"DS-Digital"*/
+			"Digital-7 Mono"
+		);
+
+		SendMessage(hEdit, WM_SETFONT, (WPARAM)hFont, TRUE);
+
+
+
 
 		CHAR pathBegin[] = "C:\\Users\\mayma\\OneDrive\\Рабочий стол\\Академия ТОП\\01_Учеба\\07_WPF, WinForms\\Домашняя работа\\Кнопки\\";
 		CHAR pathButtonPrefics[] = "Button_";
@@ -668,6 +692,8 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 	case WM_DESTROY:
 	{
+		DeleteObject(hFont);
+		hFont = NULL;
 		FreeConsole();
 		PostQuitMessage(0);
 	} break;
