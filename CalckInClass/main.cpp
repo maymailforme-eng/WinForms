@@ -30,9 +30,16 @@
 #define g_i_BUTTON_X_POSITION(SHIFT)	g_i_BUTTON_START_X + (g_i_BUTTON_SIZE + g_i_INTERVAL) * (SHIFT)
 #define g_i_BUTTON_Y_POSITION(SHIFT)	g_i_BUTTON_START_Y + (g_i_BUTTON_SIZE + g_i_INTERVAL) * (SHIFT)
 
-CONST CHAR g_OPERATION[] = "+-*/";
-CONST CHAR* g_SKINS[] = { "metall_mistral", "square_blue" };
+enum Skin {SquareBlue, MetalMistral};
+enum Color {MainBacground, DisplayBackground, Font};
 
+CONST CHAR g_OPERATION[] = "+-*/";
+CONST CHAR* g_SKINS[] = {  "square_blue", "metall_mistral" };
+CONST COLORREF g_COLORS[2][3] =
+{
+	{RGB(0,0,200), RGB(0,0,100), RGB(200,200,200)},
+	{RGB(100,100,100), RGB(50,50,50), RGB(50,200,50)}
+};
 
 
 
@@ -146,8 +153,11 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 
 
 
+
+
 LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+	static Skin skin = Skin::SquareBlue;
 
 	switch (uMsg)
 	{
@@ -380,7 +390,32 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		SetSkin(hwnd, "SquareBlue");
 
 	}break;
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	case WM_CTLCOLOREDIT:
+	{
+		HDC hdc = (HDC)wParam; //контекст устройства - это набор ресурсов, привязанных к определенному устройству 
+							  //позволяющий применять к этому устройству графические функции, в OS Winows 
+							  // абсолютно для любого окна можно получить контекст устройства при помощи функции GetDC(HWND)
 
+
+		HBRUSH hBackground = CreateSolidBrush(g_COLORS[skin][Color::MainBacground]);
+		SetBkColor(hdc, g_COLORS[skin][Color::DisplayBackground]);
+		SetTextColor(hdc, g_COLORS[skin][Color::Font]);
+
+
+
+	/*	SetBkMode(hdc, OPAQUE);
+		SetBkColor(hdc, RGB(0, 0, 100));
+		SetTextColor(hdc, RGB(200, 200, 200));
+		HBRUSH hBackground = CreateSolidBrush(RGB(0, 0, 200));*/
+		SetClassLongPtr(hwnd, GCLP_HBRBACKGROUND, (LONG)hBackground);
+		SendMessage(hwnd, WM_ERASEBKGND, wParam, 0);
+
+
+	
+	
+	
+	}break;
 
 
 
@@ -620,6 +655,14 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		}
 
 		DestroyMenu(hMenu);
+
+		skin = Skin(item - IDR_SQUARE_BLUE);
+		HWND hEditDisplay = GetDlgItem(hwnd, IDC_DISPLAY);
+		HDC hdc = GetDC(hwnd);
+		ReleaseDC(hwnd, hdc);
+		SendMessage(hwnd, WM_CTLCOLOREDIT, (WPARAM)hdc, (LPARAM)hEditDisplay);
+		SetFocus(hEditDisplay);
+
 	
 	} break;
 
