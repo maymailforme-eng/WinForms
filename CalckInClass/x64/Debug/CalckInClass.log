@@ -1,1 +1,21 @@
-﻿  CalckInClass.vcxproj -> C:\Users\mayma\OneDrive\Рабочий стол\Академия ТОП\01_Учеба\07_WPF, WinForms\Repository\WinForms\WinForms\x64\Debug\CalckInClass.exe
+﻿  main.cpp
+C:\Users\ASUS\Desktop\Репозиторий\WinForms\CalckInClass\main.cpp(153,12): warning C4244: 'return': conversion from 'WPARAM' to 'int', possible loss of data
+C:\Users\ASUS\Desktop\Репозиторий\WinForms\CalckInClass\main.cpp(191,21): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\ASUS\Desktop\Репозиторий\WinForms\CalckInClass\main.cpp(244,6): warning C4312: 'type cast': conversion from 'int' to 'HMENU' of greater size
+C:\Users\ASUS\Desktop\Репозиторий\WinForms\CalckInClass\main.cpp(332,5): warning C4312: 'type cast': conversion from 'int' to 'HMENU' of greater size
+C:\Users\ASUS\Desktop\Репозиторий\WinForms\CalckInClass\main.cpp(435,45): warning C4311: 'type cast': pointer truncation from 'HBRUSH' to 'LONG'
+C:\Users\ASUS\Desktop\Репозиторий\WinForms\CalckInClass\main.cpp(435,45): warning C4302: 'type cast': truncation from 'HBRUSH' to 'LONG'
+C:\Users\ASUS\Desktop\Репозиторий\WinForms\CalckInClass\main.cpp(556,19): warning C4477: 'sprintf' : format string '%i' requires an argument of type 'int', but variadic argument 1 has type 'WPARAM'
+      C:\Users\ASUS\Desktop\Репозиторий\WinForms\CalckInClass\main.cpp(556,19):
+      consider using '%lli' in the format string
+      C:\Users\ASUS\Desktop\Репозиторий\WinForms\CalckInClass\main.cpp(556,19):
+      consider using '%Ii' in the format string
+      C:\Users\ASUS\Desktop\Репозиторий\WinForms\CalckInClass\main.cpp(556,19):
+      consider using '%I64i' in the format string
+  
+C:\Users\ASUS\Desktop\Репозиторий\WinForms\CalckInClass\main.cpp(572,46): warning C4244: 'argument': conversion from 'WPARAM' to 'int', possible loss of data
+C:\Users\ASUS\Desktop\Репозиторий\WinForms\CalckInClass\main.cpp(576,53): warning C4244: 'argument': conversion from 'WPARAM' to 'int', possible loss of data
+C:\Users\ASUS\Desktop\Репозиторий\WinForms\CalckInClass\main.cpp(617,46): warning C4244: 'argument': conversion from 'WPARAM' to 'int', possible loss of data
+C:\Users\ASUS\Desktop\Репозиторий\WinForms\CalckInClass\main.cpp(622,53): warning C4244: 'argument': conversion from 'WPARAM' to 'int', possible loss of data
+C:\Users\ASUS\Desktop\Репозиторий\WinForms\CalckInClass\main.cpp(625,2): warning C4102: 'LABEL': unreferenced label
+  CalckInClass.vcxproj -> C:\Users\ASUS\Desktop\Репозиторий\WinForms\x64\Debug\CalckInClass.exe
