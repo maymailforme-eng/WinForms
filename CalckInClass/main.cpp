@@ -36,7 +36,7 @@ enum Skin {SquareBlue, MetalMistral};
 enum Color {MainBacground, DisplayBackground, Font};
 
 CONST CHAR g_OPERATION[] = "+-*/";
-CONST CHAR* g_SKINS[] = {  "square_blue", "metall_mistral" };
+CONST CHAR* g_SKINS[] = {  "square_blue", "metal_mistral" };
 CONST COLORREF g_COLORS[2][3] =
 {
 	{RGB(0,0,200), RGB(0,0,100), RGB(200,200,200)},
@@ -46,6 +46,9 @@ CONST COLORREF g_COLORS[2][3] =
 
 
 VOID SetSkin(HWND hwnd, CONST CHAR sz_skin[]);
+VOID SetSkinFromDLL(HWND hwnd, CONST CHAR sz_skin[]);
+
+
 
 
 
@@ -411,7 +414,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		SendMessage(hButtonEquals, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
 
 
-		SetSkin(hwnd, "SquareBlue");
+		SetSkinFromDLL(hwnd, g_SKINS[1]);
 
 	}break;
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -673,8 +676,8 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 		switch (item)
 		{
-			case IDR_SQUARE_BLUE: SetSkin(hwnd, "SquareBlue"); break;
-			case IDR_METAL_MISTRAL: SetSkin(hwnd, "MetalMistral"); break;
+			case IDR_SQUARE_BLUE: SetSkinFromDLL(hwnd, g_SKINS[0]); break;
+			case IDR_METAL_MISTRAL: SetSkinFromDLL(hwnd, g_SKINS[1]); break;
 			case IDR_EXIT: SendMessage(hwnd, WM_CLOSE, 0, 0);
 		}
 
@@ -750,5 +753,27 @@ VOID SetSkin(HWND hwnd, CONST CHAR sz_skin[])
 		SendMessage(hButton, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)bmpGutton);
 	}
 
+
+}
+
+VOID SetSkinFromDLL(HWND hwnd, CONST CHAR sz_skin[])
+{
+	HINSTANCE hSkin = LoadLibrary(sz_skin);
+	for (int i = IDC_BUTTON_0; i <= IDC_BUTTON_EQUAL; i++)
+	{
+		HBITMAP bmpButton = (HBITMAP)LoadImage
+		(
+			hSkin,
+			MAKEINTRESOURCE(i),
+			IMAGE_BITMAP,
+			i > IDC_BUTTON_0 ? g_i_BUTTON_SIZE : g_i_DOUBLE_BUTTON_SIZE,
+			i < IDC_BUTTON_EQUAL ? g_i_BUTTON_SIZE : g_i_DOUBLE_BUTTON_SIZE,
+			LR_SHARED
+		);
+
+		SendMessage(GetDlgItem(hwnd, i), BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)bmpButton);
+	}
+
+	FreeLibrary(hSkin);
 
 }
