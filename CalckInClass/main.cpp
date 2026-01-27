@@ -431,14 +431,10 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 
 
-	/*	SetBkMode(hdc, OPAQUE);
-		SetBkColor(hdc, RGB(0, 0, 100));
-		SetTextColor(hdc, RGB(200, 200, 200));
-		HBRUSH hBackground = CreateSolidBrush(RGB(0, 0, 200));*/
 		SetClassLongPtr(hwnd, GCLP_HBRBACKGROUND, (LONG)hBackground);
 		SendMessage(hwnd, WM_ERASEBKGND, wParam, 0);
 
-
+		return (LRESULT)hBackground;
 	
 	
 	
@@ -665,8 +661,8 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		HMENU hMenu = CreatePopupMenu();
 		InsertMenu(hMenu, 0, MF_BYPOSITION | MF_STRING, IDR_EXIT, "Exit");
 		InsertMenu(hMenu, 0, MF_BYPOSITION | MF_SEPARATOR, NULL, NULL);
-		InsertMenu(hMenu, 0, MF_BYPOSITION | MF_STRING, IDR_METAL_MISTRAL, "Metal mistral");
-		InsertMenu(hMenu, 0, MF_BYPOSITION | MF_STRING, IDR_SQUARE_BLUE, "Square blue");
+		InsertMenu(hMenu, 0, MF_BYPOSITION | MF_STRING, IDR_METAL_MISTRAL, "metal_mistral");
+		InsertMenu(hMenu, 0, MF_BYPOSITION | MF_STRING, IDR_SQUARE_BLUE, "square_blue");
 
 		INT item = TrackPopupMenuEx(
 						hMenu,
@@ -674,10 +670,11 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			LOWORD(lParam), HIWORD(lParam), (HWND)wParam, NULL);
 
 
+		
 		switch (item)
 		{
-			case IDR_SQUARE_BLUE: SetSkinFromDLL(hwnd, g_SKINS[0]); break;
-			case IDR_METAL_MISTRAL: SetSkinFromDLL(hwnd, g_SKINS[1]); break;
+			case IDR_SQUARE_BLUE: SetSkinFromDLL(hwnd, "square_blue"); break;
+			case IDR_METAL_MISTRAL: SetSkinFromDLL(hwnd, "metal_mistral"); break;
 			case IDR_EXIT: SendMessage(hwnd, WM_CLOSE, 0, 0);
 		}
 
@@ -686,8 +683,9 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		skin = Skin(item - IDR_SQUARE_BLUE);
 		HWND hEditDisplay = GetDlgItem(hwnd, IDC_DISPLAY);
 		HDC hdc = GetDC(hwnd);
-		ReleaseDC(hwnd, hdc);
+
 		SendMessage(hwnd, WM_CTLCOLOREDIT, (WPARAM)hdc, (LPARAM)hEditDisplay);
+		ReleaseDC(hwnd, hdc);
 		SetFocus(hEditDisplay);
 
 	
