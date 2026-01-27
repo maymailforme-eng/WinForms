@@ -414,7 +414,7 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		SendMessage(hButtonEquals, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
 
 
-		SetSkinFromDLL(hwnd, g_SKINS[1]);
+		SetSkinFromDLL(hwnd, g_SKINS[0]);
 
 	}break;
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -707,52 +707,52 @@ LRESULT WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 }
 
 
-VOID SetSkin(HWND hwnd, CONST CHAR sz_skin[])
-{
-	CONST CHAR* sz_NAMES[] =
-	{
-		"button_0",
-		"button_1",
-		"button_2",
-		"button_3",
-		"button_4",
-		"button_5",
-		"button_6",
-		"button_7",
-		"button_8",
-		"button_9",
-		"button_point",
-		"button_plus",
-		"button_minus",
-		"button_aster",
-		"button_slash",
-		"button_bsp",
-		"button_clr",
-		"button_equal"
-	};
-
-
-	for (int i = 0; i < 18; ++i)
-	{
-		HWND hButton = GetDlgItem(hwnd, IDC_BUTTON_0 + i);
-		CHAR sz_filename[MAX_PATH] = {};
-		sprintf(sz_filename, "ButtonsBMP\\%s\\%s.bmp", sz_skin, sz_NAMES[i]);
-		HBITMAP bmpGutton = (HBITMAP)LoadImage
-		(
-			GetModuleHandle(NULL),
-			sz_filename,
-			IMAGE_BITMAP,
-			i > 0 ? g_i_BUTTON_SIZE : g_i_DOUBLE_BUTTON_SIZE,
-			i < 17 ? g_i_BUTTON_SIZE : g_i_DOUBLE_BUTTON_SIZE,
-			LR_LOADFROMFILE
-
-		);
-
-		SendMessage(hButton, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)bmpGutton);
-	}
-
-
-}
+//VOID SetSkin(HWND hwnd, CONST CHAR sz_skin[])
+//{
+//	CONST CHAR* sz_NAMES[] =
+//	{
+//		"button_0",
+//		"button_1",
+//		"button_2",
+//		"button_3",
+//		"button_4",
+//		"button_5",
+//		"button_6",
+//		"button_7",
+//		"button_8",
+//		"button_9",
+//		"button_point",
+//		"button_plus",
+//		"button_minus",
+//		"button_aster",
+//		"button_slash",
+//		"button_bsp",
+//		"button_clr",
+//		"button_equal"
+//	};
+//
+//
+//	for (int i = 0; i < 18; ++i)
+//	{
+//		HWND hButton = GetDlgItem(hwnd, IDC_BUTTON_0 + i);
+//		CHAR sz_filename[MAX_PATH] = {};
+//		sprintf(sz_filename, "ButtonsBMP\\%s\\%s.bmp", sz_skin, sz_NAMES[i]);
+//		HBITMAP bmpGutton = (HBITMAP)LoadImage
+//		(
+//			GetModuleHandle(NULL),
+//			sz_filename,
+//			IMAGE_BITMAP,
+//			i > 0 ? g_i_BUTTON_SIZE : g_i_DOUBLE_BUTTON_SIZE,
+//			i < 17 ? g_i_BUTTON_SIZE : g_i_DOUBLE_BUTTON_SIZE,
+//			LR_LOADFROMFILE
+//
+//		);
+//
+//		SendMessage(hButton, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)bmpGutton);
+//	}
+//
+//
+//}
 
 VOID SetSkinFromDLL(HWND hwnd, CONST CHAR sz_skin[])
 {

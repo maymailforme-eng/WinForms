@@ -92,6 +92,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     CreateDirectoryA(fullPathInstall, NULL); //создаем папку FONTS
     CopyAllFilesFromFolderA(pathSourceBMP_FONTS, fullPathInstall);  //копируем в шрифты
 
+    if (flagCorrectInstal)
+    {
+        MessageBox(NULL, "Калькулятор установлен", "Installer", MB_OK);
+    }
+    else
+    {
+        MessageBox(NULL, "В ходе установки возникли ошибки", "Installer", MB_OK);
+    }
+
+ 
 
     return !flagCorrectInstal ? 0 : 1;
 }
